@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">FalconEvCharger</string>
+    <string name="falcon_ev_charger">Falcon EV Charger</string>
+    <string name="don_t_have_an_account_sign_up">Don’t have an account? Sign up</string>
+    <string name="sign_in_with_phone_number">Sign in with Phone Number</string>
+    <string name="enter_email_or_phone_number">Enter Email or phone number</string>
+    <string name="please_enter_your_phone_number_msg">Please enter your phone number. You will receive an OTP code in the next step for the verification process.</string>
+    <string name="txt_continue">Continue</string>
+    <string name="phone_number">Phone Number</string>
+</resources>

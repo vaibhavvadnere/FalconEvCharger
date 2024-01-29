@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.falcon.evCharger.login.viewModel.LoginFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_hello_there"
+            style="@style/text_header_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+            android:text="Hello there 👋"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_login_message"
+            style="@style/text_style_16_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:text="@string/please_enter_your_phone_number_msg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hello_there" />
+
+        <TextView
+            android:id="@+id/tv_phone_number"
+            style="@style/text_style_16_bold"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:text="@string/phone_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_login_message" />
+
+        <LinearLayout
+            android:id="@+id/layout_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp"
+            android:elevation="15dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_phone_number">
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/country_code_picker"
+                style="@style/text_style_14_normal"
+                android:layout_width="0dip"
+                android:layout_height="50dp"
+                android:layout_weight="1.4"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:visibility="visible" />
+
+            <EditText
+                android:id="@+id/email_or_phone_number"
+                style="@style/text_style_14_normal"
+                android:layout_width="0dip"
+                android:layout_height="50dp"
+                android:layout_weight="2"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/enter_email_or_phone_number"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="10"
+                android:paddingStart="10dp"
+                android:textColorHint="@color/greyscale_900"
+                tools:ignore="RtlSymmetry,TextFields,TextSizeCheck" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_green_underline"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@color/green_900"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_phone_number" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:button="@drawable/app_checkbox_selector"
+            android:checked="false"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_terms_and_condition"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_terms_and_condition" />
+
+        <TextView
+            android:id="@+id/tv_terms_and_condition"
+            style="@style/text_style_16_normal"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="I agree to Falcon EV Charger Public Agreement, Terms, Privacy Policy, and confirm that I am over 17 years old."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/checkBox"
+            app:layout_constraintTop_toBottomOf="@+id/layout_phone_number" />
+
+        <Button
+            android:id="@+id/btn_login_with_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/button_background_container"
+            android:onClick="@{viewModel::onContinueClick}"
+            android:text="@string/txt_continue"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textColorLink="@color/green_900"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
