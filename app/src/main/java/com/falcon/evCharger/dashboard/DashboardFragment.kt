@@ -1,4 +1,4 @@
-package com.falcon.evCharger.signUp
+package com.falcon.evCharger.dashboard
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,23 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.falcon.evCharger.base.HomeBaseFragment
-import com.falcon.evCharger.signUp.viewModel.SignUpFragmentViewModel
-import com.falcon.evcharger.R
-import com.falcon.evcharger.databinding.SignUpFragmentBinding
+import com.falcon.evCharger.dashboard.viewModel.DashboardViewModel
+import com.falcon.evcharger.databinding.DashboardFragmentBinding
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class SignUpFragment : HomeBaseFragment() {
+class DashboardFragment : HomeBaseFragment() {
 
-    private lateinit var signUpFragmentBinding: SignUpFragmentBinding
+    private lateinit var dashboardFragmentBinding: DashboardFragmentBinding
 
-    private val signUpFragmentViewModel: SignUpFragmentViewModel by activityViewModels()
+    private val dashboardViewModel: DashboardViewModel by activityViewModels()
 
     //Class to Handle all the button click
     enum class ViewOnClick {
-        CONTINUE, SIGN_UP, SCAN_QR_BARCODE,
+        SCAN_QR
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,17 +33,21 @@ class SignUpFragment : HomeBaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        signUpFragmentBinding = SignUpFragmentBinding.inflate(inflater, container, false)
+        dashboardFragmentBinding = DashboardFragmentBinding.inflate(inflater, container, false)
 
-        mActivity?.let { signUpFragmentViewModel.init(it) }
+        mActivity?.let { dashboardViewModel.init(it) }
 
-        signUpFragmentBinding.viewModel = signUpFragmentViewModel
+        dashboardFragmentBinding.viewModel = dashboardViewModel
 
-        return signUpFragmentBinding.root
+
+
+        return dashboardFragmentBinding.root
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
+
+
     }
 
     override fun connectionAvailable() {
@@ -64,10 +68,11 @@ class SignUpFragment : HomeBaseFragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(viewOnClick: ViewOnClick) {
         when (viewOnClick) {
-
-            ViewOnClick.CONTINUE -> {
-                Log.e("onInClick", ":clicked  CONTINUE:")
-                mActivity?.navController?.navigate(R.id.action_sign_in)
+            ViewOnClick.SCAN_QR -> {
+                Log.e("onSignInClick", ":clicked  SIGN_IN:")
+                /*val intent = Intent(context, ScanQRCodeActivity::class.java)
+                mActivity?.startActivityForResult(intent, 1) // Activity is started with requestCode 2
+                hideDialog()*/
             }
 
             else -> {

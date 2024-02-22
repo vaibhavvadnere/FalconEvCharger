@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/dark"
         android:orientation="vertical">
 
         <TextView
@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/tv_login_message"
-            style="@style/text_style_16_normal"
+            style="@style/text_style_14_normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -47,7 +47,7 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp"
+            android:layout_marginVertical="30dp"
             android:text="@string/phone_number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,6 @@
                 android:layout_height="50dp"
                 android:layout_weight="1.4"
                 android:gravity="center_vertical"
-                android:textSize="16sp"
                 android:visibility="visible" />
 
             <EditText
@@ -104,8 +103,8 @@
 
         <CheckBox
             android:id="@+id/checkBox"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="20dp"
             android:button="@drawable/app_checkbox_selector"
@@ -116,10 +115,10 @@
 
         <TextView
             android:id="@+id/tv_terms_and_condition"
-            style="@style/text_style_16_normal"
+            style="@style/text_style_14_normal"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
+            android:layout_marginVertical="30dp"
             android:layout_marginEnd="20dp"
             android:text="I agree to Falcon EV Charger Public Agreement, Terms, Privacy Policy, and confirm that I am over 17 years old."
             app:layout_constraintEnd_toEndOf="parent"
@@ -127,14 +126,14 @@
             app:layout_constraintTop_toBottomOf="@+id/layout_phone_number" />
 
         <Button
-            android:id="@+id/btn_login_with_mobile"
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
-            android:layout_height="62dp"
+            android:layout_height="50dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp"
+            android:layout_marginVertical="40dp"
             android:background="@drawable/button_background_container"
-            android:onClick="@{viewModel::onContinueClick}"
-            android:text="@string/txt_continue"
+            android:onClick="@{viewModel::onLoginClick}"
+            android:text="@string/login"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorLink="@color/green_900"

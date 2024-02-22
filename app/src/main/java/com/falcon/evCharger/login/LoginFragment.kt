@@ -23,7 +23,7 @@ class LoginFragment : HomeBaseFragment() {
 
     //Class to Handle all the button click
     enum class ViewOnClick {
-        CONTINUE, SIGN_UP, SCAN_QR_BARCODE,
+        LOG_IN, SIGN_UP, SCAN_QR_BARCODE,
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,9 +65,9 @@ class LoginFragment : HomeBaseFragment() {
     fun onMessageEvent(viewOnClick: ViewOnClick) {
         when (viewOnClick) {
 
-            ViewOnClick.CONTINUE -> {
+            ViewOnClick.LOG_IN -> {
                 Log.e("onInClick", ":clicked  CONTINUE:")
-                mActivity?.navController?.navigate(R.id.action_sign_in)
+                mActivity?.navController?.navigate(R.id.action_log_in)
             }
 
             else -> {

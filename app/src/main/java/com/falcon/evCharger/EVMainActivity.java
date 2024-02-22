@@ -15,6 +15,20 @@ public class EVMainActivity extends BaseActivity {
     public NavController navController;
 
 
+    public interface onBackPressListener {
+        void onBackPress();
+    }
+
+    private onBackPressListener monBackPressListener = null;
+
+    public void registerOnBackPress(onBackPressListener monBackPressListener) {
+        this.monBackPressListener = monBackPressListener;
+    }
+
+    public void unRegisterOnBackPress() {
+        this.monBackPressListener = null;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +47,16 @@ public class EVMainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        try {
+            if (monBackPressListener != null) {
+                monBackPressListener.onBackPress();
+            } else {
+                super.onBackPressed();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+//            super.onBackPressed();
+        }
 
     }
 

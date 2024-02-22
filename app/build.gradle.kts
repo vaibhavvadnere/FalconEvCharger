@@ -101,4 +101,10 @@ dependencies {
     //    implementation ("com.hbb20:ccp:1.7.1")
 
     //    implementation("androidx.databinding:databinding-runtime:8.2.2")
+
+    //    implementation("me.relex:circleindicator:2.1.6")
+
+    implementation("androidx.viewpager2:viewpager2:1.0.0-alpha04")
+    // for QR code Scanner
+    //    implementation("me.dm7.barcodescanner:zxing:1.9.13")
 }

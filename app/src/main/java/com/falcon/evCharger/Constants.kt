@@ -13,6 +13,8 @@ object Constants {
 
     //    const val BASE_URL: String = PROD;
 
+    const val TOTAL_SCREEN = 3
+
     //Shared Preferences
     const val FALCON_EV_CHARGER_SHARED_DATA = "FalconEvCharger_SharedData"
 

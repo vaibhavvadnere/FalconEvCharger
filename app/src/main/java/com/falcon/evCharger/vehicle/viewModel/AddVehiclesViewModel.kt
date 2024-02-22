@@ -1,4 +1,4 @@
-package com.falcon.evCharger.signUp.viewModel
+package com.falcon.evCharger.vehicle.viewModel
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -8,11 +8,11 @@ import com.falcon.evCharger.data.api.ApiHelper
 import com.falcon.evCharger.data.api.ApiServiceImpl
 import com.falcon.evCharger.data.repositry.MainRepo
 import com.falcon.evCharger.data.repositry.SharePrefRepo
-import com.falcon.evCharger.login.LoginFragment
-import com.falcon.evCharger.signUp.SignUpFragment
+import com.falcon.evCharger.onBoarding.LetsYouInFragment
+import com.falcon.evCharger.vehicle.AddVehiclesFragment
 import org.greenrobot.eventbus.EventBus
 
-class SignUpFragmentViewModel : ViewModel() {
+class AddVehiclesViewModel : ViewModel() {
 
     private var mainRepo: MainRepo? = null
 
@@ -26,8 +26,14 @@ class SignUpFragmentViewModel : ViewModel() {
         mActivity = mainActivity
     }
 
-    //Function to handle Continue Click
-    fun onContinueClick(view: View) {
-        EventBus.getDefault().post(SignUpFragment.ViewOnClick.CONTINUE)
+    //Function to handle Cancel Click
+    fun onCancelClick(view: View) {
+        EventBus.getDefault().post(AddVehiclesFragment.ViewOnClick.CANCEL)
     }
+
+    //Function to handle Add Vehicle
+    fun onAddVehicleClick(view: View) {
+        EventBus.getDefault().post(AddVehiclesFragment.ViewOnClick.ADD_VEHICLE)
+    }
+
 }

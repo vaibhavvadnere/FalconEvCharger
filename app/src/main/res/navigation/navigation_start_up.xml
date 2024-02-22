@@ -39,14 +39,68 @@
         android:label="fragment_log_in"
         tools:layout="@layout/log_in_fragment">
 
+        <action
+            android:id="@+id/action_log_in"
+            app:destination="@+id/frag_menu" />
+
+
     </fragment>
 
     <fragment
         android:id="@+id/frag_sign_up"
         android:name="com.falcon.evCharger.signUp.SignUpFragment"
         android:label="fragment_log_in"
-        tools:layout="@layout/log_in_fragment">
+        tools:layout="@layout/sign_up_fragment">
 
     </fragment>
+
+    <fragment
+        android:id="@+id/frag_menu"
+        android:name="com.falcon.evCharger.menuOptions.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu">
+
+
+        <action
+            android:id="@+id/action_add_vehicle"
+            app:destination="@+id/frag_add_vehicle" />
+
+    </fragment>
+
+    <!--<fragment
+        android:id="@+id/frag_dashboard"
+        android:name="com.falcon.evCharger.dashboard.DashboardFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/frag_vehicle"
+        android:name="com.falcon.evCharger.vehicle.VehiclesFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu">
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/frag_setup"
+        android:name="com.falcon.evCharger.setup.SetupFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu">
+
+    </fragment>-->
+
+
+    <fragment
+        android:id="@+id/frag_add_vehicle"
+        android:name="com.falcon.evCharger.vehicle.AddVehiclesFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/add_vehicles_fragment">
+
+
+    </fragment>
+
 
 </navigation>
