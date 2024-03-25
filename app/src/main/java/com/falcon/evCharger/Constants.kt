@@ -6,7 +6,8 @@ object Constants {
     const val REQUEST = "Request"
     const val RESPONSE = "Response"
     private const val PROD = "https://app-ca-webapi.azurewebsites.net/"
-    private const val DEV = "https://carealertdev.azurewebsites.net/"
+   // private const val DEV = "https://carealertdev.azurewebsites.net/"
+    private const val DEV = "http://ev.falconides.com/"
     //    const val BASE_URL: String = BuildConfig.BASE_URL
 
     const val BASE_URL: String = DEV;
@@ -17,6 +18,17 @@ object Constants {
 
     //Shared Preferences
     const val FALCON_EV_CHARGER_SHARED_DATA = "FalconEvCharger_SharedData"
+
+    //User fields
+    const val ID = "ID"
+    const val SOCIETY_ID = "Society_ID"
+    const val USER_ID = "USER_ID"
+    const val USER_NAME = "USER_NAME"
+    const val Phone_Number = "PHONE_NUMBER"
+    const val USER_ADDRESS = "USER_ADDRESS"
+    const val VEHICLE_NO = "VEHICLE_NO"
+    const val VEHICLE_TYPE = "VEHICLE_TYPE"
+    const val IS_ACTIVE = "IS_ACTIVE"
 
     const val PLATFORM = "Platform"
     const val BEARER = "Bearer "
