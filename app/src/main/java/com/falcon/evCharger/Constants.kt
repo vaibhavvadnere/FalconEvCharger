@@ -20,6 +20,7 @@ object Constants {
     const val FALCON_EV_CHARGER_SHARED_DATA = "FalconEvCharger_SharedData"
 
     //User fields
+    const val IS_LOGGED_IN = "IS_LOGGED_IN"
     const val ID = "ID"
     const val SOCIETY_ID = "Society_ID"
     const val USER_ID = "USER_ID"

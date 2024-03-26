@@ -15,6 +15,10 @@
             android:id="@+id/action_lets_in"
             app:destination="@+id/frag_lets_in" />
 
+        <action
+            android:id="@+id/action_log_in"
+            app:destination="@+id/frag_menu" />
+
     </fragment>
 
     <fragment

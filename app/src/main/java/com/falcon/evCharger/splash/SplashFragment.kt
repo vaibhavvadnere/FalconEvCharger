@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
+import com.falcon.evCharger.Constants
 import com.falcon.evCharger.base.HomeBaseFragment
+import com.falcon.evCharger.data.repositry.SharePrefRepo
 import com.falcon.evCharger.splash.viewmodel.SplashFragmentViewModel
 import com.falcon.evcharger.R
 import com.falcon.evcharger.databinding.SplashFragmentBinding
@@ -21,6 +23,8 @@ class SplashFragment : HomeBaseFragment() {
     private val splashFragmentViewModel: SplashFragmentViewModel by activityViewModels()
 
     private val splashTimeout: Long = 2000
+
+    val sharePrefRepo: SharePrefRepo = SharePrefRepo.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,10 +48,23 @@ class SplashFragment : HomeBaseFragment() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
 
+/*
         Handler(Looper.getMainLooper()).postDelayed(
                 {
                     mActivity?.navController?.navigate(R.id.action_lets_in)
                 }, splashTimeout)
+*/
+
+
+        if (sharePrefRepo.getBoolean(Constants.IS_LOGGED_IN)) {
+            mActivity?.navController?.navigate(R.id.action_log_in)
+        } else {
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    mActivity?.navController?.navigate(R.id.action_lets_in)
+                }, splashTimeout
+            )
+        }
 
     }
 

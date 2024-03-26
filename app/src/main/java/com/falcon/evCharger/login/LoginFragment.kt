@@ -105,7 +105,7 @@ class LoginFragment : HomeBaseFragment() {
 
         Log.e("LoginResponseLogs", ":" + Gson().toJson(loginResponse))
 
-        sharePrefRepo.putBoolean(Constants.IS_ACTIVE, true)
+        sharePrefRepo.putBoolean(Constants.IS_LOGGED_IN, true)
 
         sharePrefRepo.putInt(Constants.ID, loginResponse.User.ID)
         sharePrefRepo.putInt(Constants.SOCIETY_ID, loginResponse.User.Society_ID)

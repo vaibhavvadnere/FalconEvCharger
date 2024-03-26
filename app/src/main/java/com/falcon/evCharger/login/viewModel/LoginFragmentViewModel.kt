@@ -50,21 +50,19 @@ class LoginFragmentViewModel : ViewModel() {
                         Log.e(
                             "loginLogs", ":Success:" + Gson().toJson(response.body())
                         )
-                           Toast.makeText(mActivity, "Login Successfully", Toast.LENGTH_SHORT).show()
+
 
                         if (response.body()?.Result == true) {
                             EventBus.getDefault().post(response.body())
                         } else {
-                            Toast.makeText(mActivity, R.string.something_went_wrong, Toast.LENGTH_SHORT)
-                                .show()
+                            Toast.makeText(mActivity, response.body()?.Message, Toast.LENGTH_SHORT).show()
 
                             EventBus.getDefault().post(LoginFragment.UpdateEvent.LOGIN_FAILED)
                         }
 
                     } else {
                         Log.e("loginLogs", ":FailedOnResponse:")
-                        Toast.makeText(mActivity,R.string.something_went_wrong, Toast.LENGTH_SHORT).show()
-
+                        Toast.makeText(mActivity, response.body()?.Message, Toast.LENGTH_SHORT).show()
                         EventBus.getDefault().post(LoginFragment.UpdateEvent.LOGIN_FAILED)
 
                     }
