@@ -27,4 +27,6 @@
     <string name="we_have_sent_an_otp_code_to_email">We have sent an OTP code to email %s. Enter the OTP code below to continue.</string>
     <string name="otp_code_verification">OTP code verification 🔐</string>
     <string name="remaining_time">You can resend code in %1\$d s</string>
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="enter_otp">Please enter Otp</string>
 </resources>

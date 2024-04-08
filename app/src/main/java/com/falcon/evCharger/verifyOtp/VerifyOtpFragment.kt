@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.falcon.evCharger.Constants
 import com.falcon.evCharger.base.HomeBaseFragment
@@ -136,10 +137,15 @@ class VerifyOtpFragment : HomeBaseFragment() {
 
                 Log.e("onInClick", ":clicked  CONTINUE:")
 
-               showDialog()
+                if (verifyOtpFragmentBinding.otpDigit1.text.isNotEmpty() && verifyOtpFragmentBinding.otpDigit2.text.isNotEmpty()
+                    && verifyOtpFragmentBinding.otpDigit3.text.isNotEmpty() && verifyOtpFragmentBinding.otpDigit4.text.isNotEmpty()) {
+                    showDialog()
 
-                mobileNo?.let { verifyOtpViewModel.verifyUsers(it) }
-
+                    mobileNo?.let { verifyOtpViewModel.verifyUsers(it) }
+                }
+                else{
+                    Toast.makeText(mActivity, R.string.enter_otp, Toast.LENGTH_SHORT).show()
+                }
             }
 
             else -> {

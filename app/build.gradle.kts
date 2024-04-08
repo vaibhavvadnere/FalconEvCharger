@@ -88,6 +88,10 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
     //Dependency for Event Bus
     implementation("org.greenrobot:eventbus:3.2.0")
+    //Dependency for zxing QR-Code
+    implementation ("com.google.zxing:core:3.4.1")
+    implementation ("com.journeyapps:zxing-android-embedded:4.2.0")
+
 
     //    implementation("androidx.activity:activity-ktx:1.4.0")
     //    implementation("androidx.fragment:fragment-ktx:1.4.0")

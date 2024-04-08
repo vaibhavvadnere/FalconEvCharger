@@ -81,9 +81,12 @@ class LoginFragment : HomeBaseFragment() {
 
             ViewOnClick.LOG_IN -> {
                 Log.e("onInClick", ":clicked  LOGIN:")
-                if (logInFragmentBinding.checkBox.isChecked) {
+                if (logInFragmentBinding.emailOrPhoneNumber.text.isEmpty()) {
+                    Toast.makeText(mActivity, R.string.enter_phone_number, Toast.LENGTH_SHORT)
+                        .show()
+                }
+             else  if (logInFragmentBinding.checkBox.isChecked) {
                     showDialog()
-
                     var loginRequest: LoginRequest = LoginRequest()
 
                     loginRequest.Phone_Number = logInFragmentBinding.emailOrPhoneNumber.text.toString()
@@ -106,7 +109,6 @@ class LoginFragment : HomeBaseFragment() {
 
         Log.e("LoginResponseLogs", ":" + Gson().toJson(loginResponse))
 
-        sharePrefRepo.putBoolean(Constants.IS_LOGGED_IN, true)
 
         sharePrefRepo.putInt(Constants.ID, loginResponse.User.ID)
         sharePrefRepo.putInt(Constants.SOCIETY_ID, loginResponse.User.Society_ID)
