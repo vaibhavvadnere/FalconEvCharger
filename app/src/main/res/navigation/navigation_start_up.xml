@@ -43,10 +43,13 @@
         android:label="fragment_log_in"
         tools:layout="@layout/log_in_fragment">
 
-        <action
+<!--        <action
             android:id="@+id/action_log_in"
-            app:destination="@+id/frag_menu" />
+            app:destination="@+id/frag_menu" />-->
 
+        <action
+            android:id="@+id/action_verify_otp"
+            app:destination="@+id/frag_verify_otp" />
 
     </fragment>
 
@@ -106,5 +109,15 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/frag_verify_otp"
+        android:name="com.falcon.evCharger.dashboard.verifyOtp.VerifyOtpFragment"
+        android:label="fragment_verify_otp"
+        tools:layout="@layout/verify_otp_fragment">
 
+        <action
+            android:id="@+id/action_verified_dashboard"
+            app:destination="@+id/frag_menu" />
+
+    </fragment>
 </navigation>

@@ -48,23 +48,21 @@ class SplashFragment : HomeBaseFragment() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
 
-/*
         Handler(Looper.getMainLooper()).postDelayed(
                 {
-                    mActivity?.navController?.navigate(R.id.action_lets_in)
+                    if (sharePrefRepo.getBoolean(Constants.IS_LOGGED_IN)) {
+                        mActivity?.navController?.navigate(R.id.action_log_in)
+                    } else {
+                        Handler(Looper.getMainLooper()).postDelayed(
+                            {
+                                mActivity?.navController?.navigate(R.id.action_lets_in)
+                            }, splashTimeout
+                        )
+                    }
                 }, splashTimeout)
-*/
 
 
-        if (sharePrefRepo.getBoolean(Constants.IS_LOGGED_IN)) {
-            mActivity?.navController?.navigate(R.id.action_log_in)
-        } else {
-            Handler(Looper.getMainLooper()).postDelayed(
-                {
-                    mActivity?.navController?.navigate(R.id.action_lets_in)
-                }, splashTimeout
-            )
-        }
+
 
     }
 

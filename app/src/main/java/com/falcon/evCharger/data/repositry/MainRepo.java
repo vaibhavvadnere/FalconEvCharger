@@ -3,8 +3,12 @@ package com.falcon.evCharger.data.repositry;
 
 import com.falcon.evCharger.data.api.ApiHelper;
 import com.falcon.evCharger.data.model.response.Post;
+import com.falcon.evCharger.request.VerifyOtpRequest;
+import com.falcon.evCharger.response.CreateUserResponse;
 import com.falcon.evCharger.response.LoginDataResponse;
 import com.iSay1.roamstick.data.model.request.LoginRequest;
+
+import org.jetbrains.annotations.NotNull;
 
 import retrofit2.Call;
 
@@ -22,6 +26,10 @@ public class MainRepo {
 
     public Call<LoginDataResponse> loginUser(LoginRequest user) {
         return mApiHelper.loginUser(user);
+    }
+
+    public Call<CreateUserResponse> verifyOtp(VerifyOtpRequest verifyOtpRequest) {
+        return mApiHelper.verifyOtp(verifyOtpRequest);
     }
 
 }

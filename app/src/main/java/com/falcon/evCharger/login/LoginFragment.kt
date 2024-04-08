@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.falcon.evCharger.Constants
 import com.falcon.evCharger.login.viewModel.LoginFragmentViewModel
@@ -117,7 +118,9 @@ class LoginFragment : HomeBaseFragment() {
         sharePrefRepo.putString(Constants.VEHICLE_TYPE, loginResponse.User.Vehicle_Type)
         sharePrefRepo.putInt(Constants.IS_ACTIVE, loginResponse.User.Active)
 
-        mActivity?.navController?.navigate(R.id.action_log_in)
+        val bundle = Bundle()
+        bundle.putString(Constants.Phone_Number,  loginResponse.User.Phone_Number)
+        mActivity?.navController?.navigate(R.id.action_verify_otp,bundle)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
