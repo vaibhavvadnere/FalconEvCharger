@@ -4,7 +4,9 @@ package com.falcon.evCharger.data.api;
 import com.falcon.evCharger.data.model.response.Post;
 import com.falcon.evCharger.request.VerifyOtpRequest;
 import com.falcon.evCharger.response.CreateUserResponse;
+import com.falcon.evCharger.response.GetDeviceResponse;
 import com.falcon.evCharger.response.LoginDataResponse;
+import com.iSay1.roamstick.data.model.request.GetDeviceRequest;
 import com.iSay1.roamstick.data.model.request.LoginRequest;
 
 import retrofit2.Call;
@@ -25,5 +27,9 @@ public class ApiHelper {
 
     public Call<CreateUserResponse> verifyOtp(VerifyOtpRequest verifyOtpRequest) {
         return mApiService.verifyOtp(verifyOtpRequest);
+    }
+
+    public Call<GetDeviceResponse> getDevice(GetDeviceRequest deviceId) {
+        return mApiService.getDevice(deviceId);
     }
 }

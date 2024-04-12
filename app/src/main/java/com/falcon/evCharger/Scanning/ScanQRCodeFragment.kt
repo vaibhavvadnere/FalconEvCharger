@@ -1,13 +1,17 @@
 package com.falcon.evCharger.Scanning
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.falcon.evCharger.login.viewModel.ScanQrCodeViewModel
 import com.falcon.evcharger.R
 import com.google.zxing.ResultPoint
+import com.iSay1.roamstick.data.model.request.GetDeviceRequest
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CompoundBarcodeView
@@ -15,6 +19,8 @@ import com.journeyapps.barcodescanner.CompoundBarcodeView
 class ScanQRCodeFragment : Fragment() {
 
     private lateinit var barcodeView: CompoundBarcodeView
+
+    private val scanQrCodeViewModel: ScanQrCodeViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +41,13 @@ class ScanQRCodeFragment : Fragment() {
         barcodeView.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult?) {
                 result?.let {
-                    val qrCodeText = it.text
-                    Toast.makeText(context, qrCodeText, Toast.LENGTH_SHORT).show()
+                    val qrCodeText = it.text.substringAfter("-","")
+                    Log.d("qr_code_value_log", ":) => $qrCodeText")
+
+                    var getDeviceRequest: GetDeviceRequest = GetDeviceRequest()
+
+                    getDeviceRequest.Device_ID = qrCodeText
+                    scanQrCodeViewModel.getDevice(getDeviceRequest)
                     requireActivity().supportFragmentManager.popBackStack()
                 }
             }
