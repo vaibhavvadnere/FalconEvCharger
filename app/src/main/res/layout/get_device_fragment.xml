@@ -18,44 +18,85 @@
         android:background="@color/dark"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_show_balance"
-            style="@style/text_header_text"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_available_balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
-            android:text="$00.00"
-            android:gravity="center"
+            android:layout_marginVertical="20dp"
+            android:background="@color/bottom_dark"
+            android:elevation="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    style="@style/text_header_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="5dp"
+                    android:text="Available Balance"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_available_balance"
+                    style="@style/text_header_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="5dp"
+                    android:text="0.0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/tv_device_id"
-            style="@style/text_style_16_bold"
-            android:layout_width="0dip"
+            android:id="@+id/tv_recharge_now"
+            style="@style/text_style_14_normal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="30dp"
-            android:text="@string/device_id"
+            android:layout_marginVertical="20dp"
+            android:gravity="center"
+            android:text="@string/recharge_now"
+            android:textColor="@color/green_900"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_show_balance" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_available_balance" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@id/cons_layout_vehicle"
+            android:id="@+id/layout_select_vehicle"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_margin="16dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="20dp"
-            android:minHeight="50dp"
-            android:layout_margin="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="@{viewModel::onVehicleClicked}"
             android:background="@drawable/spinner_background"
+            android:minHeight="50dp"
+            android:onClick="@{viewModel::onVehicleClicked}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_device_id">
+            app:layout_constraintTop_toBottomOf="@+id/tv_recharge_now">
 
 
             <RelativeLayout
@@ -106,8 +147,109 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/tv_device_id"
+            style="@style/text_style_16_bold"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="15dp"
+            android:text="Charger"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_select_vehicle" />
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_charger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:background="@color/bottom_dark"
+            android:elevation="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.65"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_device_id">
+
+            <TextView
+                android:id="@+id/tv_charger_name"
+                style="@style/text_style_14_normal"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="15dp"
+                android:gravity="center"
+                android:text="Tesla(Plug)"
+                app:layout_constraintEnd_toStartOf="@+id/view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_suply_type"
+                style="@style/text_style_14_normal"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                android:gravity="center"
+                android:text="AC.DC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_charger_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_charger_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_charger_name" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="1px"
+                android:layout_height="0dip"
+                android:layout_marginVertical="5dp"
+                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_max_power_label"
+                style="@style/text_style_14_normal"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="15dp"
+                android:gravity="center"
+                android:text="@string/max_power"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/view"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_max_power"
+                style="@style/text_style_14_normal"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                android:gravity="center"
+                android:text="100 KW"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_max_power_label"
+                app:layout_constraintHorizontal_bias="0.384"
+                app:layout_constraintStart_toStartOf="@+id/tv_max_power_label"
+                app:layout_constraintTop_toBottomOf="@+id/tv_max_power_label" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_per_unit_charges"
+            style="@style/text_style_16_bold"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="15dp"
+            android:text="@string/charges_per_unit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_charger" />
 
         <Button
             android:id="@+id/btn_start_scanner"
@@ -117,18 +259,15 @@
             android:layout_marginVertical="40dp"
             android:background="@drawable/button_background_container"
             android:onClick="@{viewModel::onLoginClick}"
-            android:text="@string/start_scanner"
+            android:text="@string/start_charging"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorLink="@color/green_900"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cons_layout_vehicle"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
-
-
-
-        <Button
+        <!--<Button
             android:id="@+id/btn_recharge_now"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -142,7 +281,7 @@
             android:textColorLink="@color/green_900"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_start_scanner"/>
+            app:layout_constraintTop_toBottomOf="@+id/btn_start_scanner" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

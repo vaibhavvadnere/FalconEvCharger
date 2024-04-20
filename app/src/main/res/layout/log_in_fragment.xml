@@ -71,11 +71,12 @@
                 android:layout_width="0dip"
                 android:layout_height="50dp"
                 android:layout_weight="1.4"
+                app:ccp_contentColor="@color/white"
                 android:gravity="center_vertical"
                 android:visibility="visible" />
 
             <EditText
-                android:id="@+id/email_or_phone_number"
+                android:id="@+id/edt_phone_number"
                 style="@style/text_style_14_normal"
                 android:layout_width="0dip"
                 android:layout_height="50dp"
@@ -87,7 +88,7 @@
                 android:inputType="number"
                 android:maxLength="10"
                 android:paddingStart="10dp"
-                android:textColorHint="@color/greyscale_900"
+                android:textColorHint="@color/white"
                 tools:ignore="RtlSymmetry,TextFields,TextSizeCheck" />
         </LinearLayout>
 

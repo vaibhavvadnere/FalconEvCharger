@@ -30,7 +30,6 @@ class LoginFragment : HomeBaseFragment() {
 
     val sharePrefRepo: SharePrefRepo = SharePrefRepo.getInstance()
 
-
     //Class to Handle all the button click
     enum class ViewOnClick {
         LOG_IN, SIGN_UP, SCAN_QR_BARCODE,
@@ -44,14 +43,18 @@ class LoginFragment : HomeBaseFragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         // Inflate the layout for this fragment
         logInFragmentBinding = LogInFragmentBinding.inflate(inflater, container, false)
 
         mActivity?.let { loginFragmentViewModel.init(it) }
 
         logInFragmentBinding.viewModel = loginFragmentViewModel
+
+        logInFragmentBinding.edtPhoneNumber.setText("9890199009")
 
         return logInFragmentBinding.root
     }
@@ -81,19 +84,18 @@ class LoginFragment : HomeBaseFragment() {
 
             ViewOnClick.LOG_IN -> {
                 Log.e("onInClick", ":clicked  LOGIN:")
-                if (logInFragmentBinding.emailOrPhoneNumber.text.isEmpty()) {
+                if (logInFragmentBinding.edtPhoneNumber.text.isEmpty()) {
                     Toast.makeText(mActivity, R.string.enter_phone_number, Toast.LENGTH_SHORT)
                         .show()
-                }
-             else  if (logInFragmentBinding.checkBox.isChecked) {
+                } else if (logInFragmentBinding.checkBox.isChecked) {
                     showDialog()
                     var loginRequest: LoginRequest = LoginRequest()
 
-                    loginRequest.Phone_Number = logInFragmentBinding.emailOrPhoneNumber.text.toString()
+                    loginRequest.Phone_Number = logInFragmentBinding.edtPhoneNumber.text.toString()
                     loginFragmentViewModel.login(loginRequest)
                 } else
                     Toast.makeText(mActivity, R.string.accept_the_terms_first, Toast.LENGTH_SHORT).show()
-            //    mActivity?.navController?.navigate(R.id.action_log_in)
+                //    mActivity?.navController?.navigate(R.id.action_log_in)
             }
 
             else -> {
@@ -121,8 +123,8 @@ class LoginFragment : HomeBaseFragment() {
         sharePrefRepo.putInt(Constants.IS_ACTIVE, loginResponse.User.Active)
 
         val bundle = Bundle()
-        bundle.putString(Constants.Phone_Number,  loginResponse.User.Phone_Number)
-        mActivity?.navController?.navigate(R.id.action_verify_otp,bundle)
+        bundle.putString(Constants.Phone_Number, loginResponse.User.Phone_Number)
+        mActivity?.navController?.navigate(R.id.action_verify_otp, bundle)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -140,7 +142,6 @@ class LoginFragment : HomeBaseFragment() {
             }
         }
     }
-
 
 
 }

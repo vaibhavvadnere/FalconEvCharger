@@ -39,7 +39,7 @@ class ScanQrCodeViewModel : ViewModel() {
     }
 
     fun getDevice(getDeviceRequest: GetDeviceRequest?) {
-        Log.e("deviceId", ":" + Gson().toJson(getDeviceRequest))
+        Log.e("deviceIdLog", ":" + Gson().toJson(getDeviceRequest))
 
         if (mainRepo != null) {
             mainRepo!!.getDevice(getDeviceRequest).enqueue(object : Callback<GetDeviceResponse> {
@@ -50,7 +50,6 @@ class ScanQrCodeViewModel : ViewModel() {
                         Log.e(
                             "scan_qr_log", ":Success:" + Gson().toJson(response.body())
                         )
-
 
                         if (response.body()?.Result == true) {
                             EventBus.getDefault().post(response.body())
@@ -75,7 +74,7 @@ class ScanQrCodeViewModel : ViewModel() {
                     Log.e("scan_qr_log", ":Failed:" + t.message)
                     Toast.makeText(mActivity, R.string.something_went_wrong, Toast.LENGTH_SHORT).show()
 
-                   EventBus.getDefault().post(LoginFragment.UpdateEvent.LOGIN_FAILED)
+                    EventBus.getDefault().post(LoginFragment.UpdateEvent.LOGIN_FAILED)
 
                 }
             })

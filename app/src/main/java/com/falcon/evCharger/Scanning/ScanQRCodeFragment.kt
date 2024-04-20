@@ -46,15 +46,19 @@ class ScanQRCodeFragment : HomeBaseFragment() {
         barcodeView.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult?) {
                 result?.let {
-                    val qrCodeText = it.text.substringAfter("-","")
+                    val qrCodeText = it.text.substringAfter("-", "")
+
                     Log.d("qr_code_value_log", ":) => $qrCodeText")
 
                     var getDeviceRequest: GetDeviceRequest = GetDeviceRequest()
 
+                    showDialog()
+
                     getDeviceRequest.Device_ID = qrCodeText
                     scanQrCodeViewModel.getDevice(getDeviceRequest)
 
-                    mActivity?.navController?.navigate(R.id.action_get_device)
+
+//                    mActivity?.navController?.navigate(R.id.action_get_device)
                 }
             }
 
