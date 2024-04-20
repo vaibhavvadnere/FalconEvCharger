@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.falcon.evCharger.base.HomeBaseFragment
 import com.falcon.evCharger.login.viewModel.ScanQrCodeViewModel
 import com.falcon.evcharger.R
 import com.google.zxing.ResultPoint
@@ -16,7 +17,7 @@ import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CompoundBarcodeView
 
-class ScanQRCodeFragment : Fragment() {
+class ScanQRCodeFragment : HomeBaseFragment() {
 
     private lateinit var barcodeView: CompoundBarcodeView
 
@@ -35,6 +36,10 @@ class ScanQRCodeFragment : Fragment() {
         return view
     }
 
+    override fun connectionAvailable() {
+        TODO("Not yet implemented")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,7 +53,8 @@ class ScanQRCodeFragment : Fragment() {
 
                     getDeviceRequest.Device_ID = qrCodeText
                     scanQrCodeViewModel.getDevice(getDeviceRequest)
-                    requireActivity().supportFragmentManager.popBackStack()
+
+                    mActivity?.navController?.navigate(R.id.action_get_device)
                 }
             }
 

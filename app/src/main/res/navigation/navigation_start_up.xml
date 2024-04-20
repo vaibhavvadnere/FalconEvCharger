@@ -19,6 +19,11 @@
             android:id="@+id/action_log_in"
             app:destination="@+id/frag_menu" />
 
+        <action
+            android:id="@+id/action_get_device"
+            app:destination="@+id/frag_get_device" />
+
+
     </fragment>
 
     <fragment
@@ -120,6 +125,10 @@
         tools:layout="@layout/fragment_scan_qr_code">
 
 
+        <action
+            android:id="@+id/action_get_device"
+            app:destination="@+id/frag_get_device" />
+
     </fragment>
 
     <fragment
@@ -131,6 +140,18 @@
         <action
             android:id="@+id/action_verified_dashboard"
             app:destination="@+id/frag_menu" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/frag_get_device"
+        android:name="com.falcon.evCharger.getDevice.GetDeviceFragment"
+        android:label="fragment_get_device"
+        tools:layout="@layout/get_device_fragment">
+
+        <!--        <action
+                    android:id="@+id/action_log_in"
+                    app:destination="@+id/frag_menu" />-->
 
     </fragment>
 </navigation>
