@@ -10,18 +10,26 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.falcon.evCharger.base.HomeBaseFragment
 import com.falcon.evCharger.login.viewModel.ScanQrCodeViewModel
+import com.falcon.evCharger.response.GetDeviceResponse
 import com.falcon.evcharger.R
+import com.google.gson.Gson
 import com.google.zxing.ResultPoint
 import com.iSay1.roamstick.data.model.request.GetDeviceRequest
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CompoundBarcodeView
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class ScanQRCodeFragment : HomeBaseFragment() {
-
     private lateinit var barcodeView: CompoundBarcodeView
 
     private val scanQrCodeViewModel: ScanQrCodeViewModel by activityViewModels()
+
+    enum class UpdateEvent {
+        SCAN_SUCCESS, SCAN_FAILED
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +40,7 @@ class ScanQRCodeFragment : HomeBaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_scan_qr_code, container, false)
+        mActivity?.let { scanQrCodeViewModel.init(it) }
         barcodeView = view.findViewById(R.id.barcode_scanner)
         return view
     }
@@ -58,13 +67,18 @@ class ScanQRCodeFragment : HomeBaseFragment() {
                     scanQrCodeViewModel.getDevice(getDeviceRequest)
 
 
-//                    mActivity?.navController?.navigate(R.id.action_get_device)
                 }
             }
 
             override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {}
         })
     }
+
+    override fun onStart() {
+        EventBus.getDefault().register(this)
+        super.onStart()
+    }
+
 
     override fun onResume() {
         super.onResume()
@@ -75,4 +89,31 @@ class ScanQRCodeFragment : HomeBaseFragment() {
         super.onPause()
         barcodeView.pause()
     }
+
+    override fun onStop() {
+        EventBus.getDefault().unregister(this)
+        super.onStop()
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(getDeviceResponse: GetDeviceResponse) {
+        hideDialog()
+        Log.e("getDeviceResponseLogs", ":" + Gson().toJson(getDeviceResponse))
+        mActivity?.navController?.navigate(R.id.action_get_device)
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(updateEvent: UpdateEvent) {
+        when (updateEvent) {
+
+            UpdateEvent.SCAN_FAILED -> {
+                Log.e("UpdateEventLog", ":clicked  LOGIN_FAILED:")
+
+                hideDialog()
+
+            }
+
+            else -> {
+
+            }
+        }
+}
 }

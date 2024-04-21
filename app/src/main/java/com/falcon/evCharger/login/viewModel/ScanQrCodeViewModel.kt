@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.falcon.evCharger.EVMainActivity
-import com.falcon.evCharger.login.LoginFragment
+import com.falcon.evCharger.Scanning.ScanQRCodeFragment
 import com.falcon.evCharger.data.api.ApiHelper
 import com.falcon.evCharger.data.api.ApiServiceImpl
 import com.falcon.evCharger.data.repositry.MainRepo
@@ -34,9 +34,6 @@ class ScanQrCodeViewModel : ViewModel() {
     }
 
     //Function to handle Yes Click
-    fun onLoginClick(view: View) {
-        EventBus.getDefault().post(LoginFragment.ViewOnClick.LOG_IN)
-    }
 
     fun getDevice(getDeviceRequest: GetDeviceRequest?) {
         Log.e("deviceIdLog", ":" + Gson().toJson(getDeviceRequest))
@@ -55,14 +52,12 @@ class ScanQrCodeViewModel : ViewModel() {
                             EventBus.getDefault().post(response.body())
                         } else {
                             Toast.makeText(mActivity, response.body()?.Message, Toast.LENGTH_SHORT).show()
-
-                            EventBus.getDefault().post(LoginFragment.UpdateEvent.LOGIN_FAILED)
                         }
 
                     } else {
                         Log.e("scan_qr_log", ":FailedOnResponse:")
                         Toast.makeText(mActivity, response.body()?.Message, Toast.LENGTH_SHORT).show()
-                        EventBus.getDefault().post(LoginFragment.UpdateEvent.LOGIN_FAILED)
+                        EventBus.getDefault().post(ScanQRCodeFragment.UpdateEvent.SCAN_FAILED)
 
                     }
                 }
@@ -74,7 +69,7 @@ class ScanQrCodeViewModel : ViewModel() {
                     Log.e("scan_qr_log", ":Failed:" + t.message)
                     Toast.makeText(mActivity, R.string.something_went_wrong, Toast.LENGTH_SHORT).show()
 
-                    EventBus.getDefault().post(LoginFragment.UpdateEvent.LOGIN_FAILED)
+                    EventBus.getDefault().post(ScanQRCodeFragment.UpdateEvent.SCAN_FAILED)
 
                 }
             })
