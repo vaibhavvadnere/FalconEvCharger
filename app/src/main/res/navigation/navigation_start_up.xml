@@ -16,7 +16,7 @@
             app:destination="@+id/frag_lets_in" />
 
         <action
-            android:id="@+id/action_log_in"
+            android:id="@+id/action_menu_in"
             app:destination="@+id/frag_menu" />
 
         <action
@@ -49,7 +49,7 @@
         tools:layout="@layout/log_in_fragment">
 
 <!--        <action
-            android:id="@+id/action_log_in"
+            android:id="@+id/action_menu_in"
             app:destination="@+id/frag_menu" />-->
 
         <action
@@ -129,6 +129,10 @@
             android:id="@+id/action_get_device"
             app:destination="@+id/frag_get_device" />
 
+        <action
+            android:id="@+id/action_menu_in"
+            app:destination="@+id/frag_menu" />
+
     </fragment>
 
     <fragment
@@ -150,7 +154,7 @@
         tools:layout="@layout/get_device_fragment">
 
         <!--        <action
-                    android:id="@+id/action_log_in"
+                    android:id="@+id/action_menu_in"
                     app:destination="@+id/frag_menu" />-->
 
     </fragment>

@@ -52,6 +52,7 @@ class ScanQrCodeViewModel : ViewModel() {
                             EventBus.getDefault().post(response.body())
                         } else {
                             Toast.makeText(mActivity, response.body()?.Message, Toast.LENGTH_SHORT).show()
+                            EventBus.getDefault().post(ScanQRCodeFragment.UpdateEvent.SCAN_FAILED)
                         }
 
                     } else {

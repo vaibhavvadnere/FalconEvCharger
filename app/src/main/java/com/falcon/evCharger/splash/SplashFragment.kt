@@ -51,7 +51,7 @@ class SplashFragment : HomeBaseFragment() {
         Handler(Looper.getMainLooper()).postDelayed(
                 {
                     if (sharePrefRepo.getBoolean(Constants.IS_LOGGED_IN)) {
-                        mActivity?.navController?.navigate(R.id.action_log_in)
+                        mActivity?.navController?.navigate(R.id.action_menu_in)
                     } else {
                         Handler(Looper.getMainLooper()).postDelayed(
                             {

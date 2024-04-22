@@ -30,6 +30,7 @@ object Constants {
     const val VEHICLE_NO = "VEHICLE_NO"
     const val VEHICLE_TYPE = "VEHICLE_TYPE"
     const val IS_ACTIVE = "IS_ACTIVE"
+    const val DEVICE_RESPONSE = "DEVICE_RESPONSE"
 
     const val PLATFORM = "Platform"
     const val BEARER = "Bearer "

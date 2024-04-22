@@ -95,7 +95,6 @@ class LoginFragment : HomeBaseFragment() {
                     loginFragmentViewModel.login(loginRequest)
                 } else
                     Toast.makeText(mActivity, R.string.accept_the_terms_first, Toast.LENGTH_SHORT).show()
-                //    mActivity?.navController?.navigate(R.id.action_log_in)
             }
 
             else -> {

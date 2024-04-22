@@ -7,15 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.falcon.evCharger.Constants
 import com.falcon.evCharger.base.HomeBaseFragment
 import com.falcon.evCharger.data.repositry.SharePrefRepo
-import com.falcon.evCharger.login.viewModel.GetDeviceFragmentViewModel
+import com.falcon.evCharger.getDevice.viewModel.GetDeviceFragmentViewModel
+import com.falcon.evCharger.response.GetDeviceResponse
 import com.falcon.evCharger.response.LoginDataResponse
-import com.falcon.evcharger.R
 import com.falcon.evcharger.databinding.GetDeviceFragmentBinding
-import com.falcon.evcharger.databinding.LogInFragmentBinding
 import com.google.gson.Gson
-import com.iSay1.roamstick.data.model.request.LoginRequest
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -53,6 +52,20 @@ class GetDeviceFragment : HomeBaseFragment() {
         getDeviceBinding.viewModel = getDeviceFragmentViewModel
 
         return getDeviceBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val response: GetDeviceResponse? = arguments?.getParcelable(Constants.DEVICE_RESPONSE)
+
+        if (response != null) {
+            updateViewComponents(response)
+        }
+    }
+
+    private fun updateViewComponents(response: GetDeviceResponse) {
+        getDeviceBinding.tvChargerName.text = response.User_Details.ID.toString()
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {

@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.falcon.evCharger.login.viewModel.GetDeviceFragmentViewModel" />
+            type="com.falcon.evCharger.getDevice.viewModel.GetDeviceFragmentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

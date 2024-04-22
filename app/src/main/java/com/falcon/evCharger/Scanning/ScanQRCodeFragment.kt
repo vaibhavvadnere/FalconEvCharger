@@ -5,9 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.falcon.evCharger.Constants
 import com.falcon.evCharger.base.HomeBaseFragment
 import com.falcon.evCharger.login.viewModel.ScanQrCodeViewModel
 import com.falcon.evCharger.response.GetDeviceResponse
@@ -56,7 +55,6 @@ class ScanQRCodeFragment : HomeBaseFragment() {
             override fun barcodeResult(result: BarcodeResult?) {
                 result?.let {
                     val qrCodeText = it.text.substringAfter("-", "")
-
                     Log.d("qr_code_value_log", ":) => $qrCodeText")
 
                     var getDeviceRequest: GetDeviceRequest = GetDeviceRequest()
@@ -98,7 +96,9 @@ class ScanQRCodeFragment : HomeBaseFragment() {
     fun onMessageEvent(getDeviceResponse: GetDeviceResponse) {
         hideDialog()
         Log.e("getDeviceResponseLogs", ":" + Gson().toJson(getDeviceResponse))
-        mActivity?.navController?.navigate(R.id.action_get_device)
+        val bundle = Bundle()
+        bundle.putParcelable(Constants.DEVICE_RESPONSE, getDeviceResponse)
+        mActivity?.navController?.navigate(R.id.action_get_device,bundle)
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(updateEvent: UpdateEvent) {
@@ -109,6 +109,7 @@ class ScanQRCodeFragment : HomeBaseFragment() {
 
                 hideDialog()
 
+                mActivity?.navController?.navigate(R.id.action_menu_in)
             }
 
             else -> {

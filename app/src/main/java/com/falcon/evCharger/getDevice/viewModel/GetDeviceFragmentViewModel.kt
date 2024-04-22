@@ -1,23 +1,14 @@
-package com.falcon.evCharger.login.viewModel
+package com.falcon.evCharger.getDevice.viewModel
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.falcon.evCharger.EVMainActivity
-import com.falcon.evCharger.login.LoginFragment
 import com.falcon.evCharger.data.api.ApiHelper
 import com.falcon.evCharger.data.api.ApiServiceImpl
 import com.falcon.evCharger.data.repositry.MainRepo
-import com.falcon.evCharger.response.LoginDataResponse
-import com.falcon.evcharger.R
-import com.google.gson.Gson
-import com.iSay1.roamstick.data.model.request.LoginRequest
+import com.falcon.evCharger.login.LoginFragment
 import org.greenrobot.eventbus.EventBus
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class GetDeviceFragmentViewModel : ViewModel() {
 
