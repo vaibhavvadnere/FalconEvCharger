@@ -10,6 +10,7 @@ import com.falcon.evCharger.data.api.ApiServiceImpl
 import com.falcon.evCharger.data.repositry.MainRepo
 import com.falcon.evCharger.data.repositry.SharePrefRepo
 import com.falcon.evCharger.onBoarding.LetsYouInFragment
+import com.falcon.evCharger.setup.SetupFragment
 import org.greenrobot.eventbus.EventBus
 
 class SetupViewModel : ViewModel() {
@@ -31,4 +32,7 @@ class SetupViewModel : ViewModel() {
         EventBus.getDefault().post(LetsYouInFragment.ViewOnClick.SIGN_IN)
     }
 
+    fun onLogoutClick(view: View) {
+        EventBus.getDefault().post(SetupFragment.ViewOnClick.LOGOUT_USER)
+    }
 }

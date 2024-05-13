@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.falcon.evCharger.base.HomeBaseFragment
 import com.falcon.evCharger.dashboard.viewModel.DashboardViewModel
+import com.falcon.evCharger.data.repositry.SharePrefRepo
 import com.falcon.evCharger.setup.viewModel.SetupViewModel
 import com.falcon.evCharger.vehicle.viewModel.VehiclesViewModel
 import com.falcon.evcharger.R
@@ -27,7 +28,7 @@ class SetupFragment : HomeBaseFragment() {
 
     //Class to Handle all the button click
     enum class ViewOnClick {
-        SIGN_IN, SIGN_UP, SCAN_QR_BARCODE,
+        SIGN_IN, SIGN_UP, SCAN_QR_BARCODE,LOGOUT_USER,
     }
 
 
@@ -80,6 +81,12 @@ class SetupFragment : HomeBaseFragment() {
 
             ViewOnClick.SIGN_UP -> {
                 mActivity?.navController?.navigate(R.id.action_sign_up)
+            }
+
+            ViewOnClick.LOGOUT_USER -> {
+                Log.e("onSignInClick", ":clicked  SIGN_IN:")
+                SharePrefRepo.getInstance().clearSharePref()
+                mActivity?.navController?.navigate(R.id.action_lets_in)
             }
 
             else -> {

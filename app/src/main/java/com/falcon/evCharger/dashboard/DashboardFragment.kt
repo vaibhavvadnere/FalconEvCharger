@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.falcon.evCharger.base.HomeBaseFragment
 import com.falcon.evCharger.dashboard.viewModel.DashboardViewModel
+import com.falcon.evCharger.util.NetConnection
 import com.falcon.evcharger.R
 import com.falcon.evcharger.databinding.DashboardFragmentBinding
 import org.greenrobot.eventbus.EventBus
@@ -111,7 +112,17 @@ class DashboardFragment : HomeBaseFragment() {
     }
 
     private fun startQrCodeScanning() {
-        mActivity?.navController?.navigate(R.id.action_scan_qr)
+        Log.e("qr_scanning", ":clicked  startQrCodeScanning:")
+        if (NetConnection.checkConnection(requireActivity())) {
+            mActivity?.navController?.navigate(R.id.action_scan_qr)
+        } else {
+            Toast.makeText(
+                requireContext(),
+                context?.resources?.getString(R.string.internet_issue),
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }
     }
 }
 

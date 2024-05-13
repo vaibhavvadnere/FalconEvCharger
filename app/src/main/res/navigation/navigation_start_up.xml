@@ -71,7 +71,9 @@
         android:name="com.falcon.evCharger.menuOptions.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu">
-
+        <action
+            android:id="@+id/action_lets_in"
+            app:destination="@+id/frag_lets_in" />
 
         <action
             android:id="@+id/action_add_vehicle"
