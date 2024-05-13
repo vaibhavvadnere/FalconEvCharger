@@ -2,6 +2,7 @@ package com.falcon.evCharger.dashboard
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat.getColor
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.falcon.evCharger.base.HomeBaseFragment
@@ -40,6 +42,7 @@ class DashboardFragment : HomeBaseFragment() {
         super.onCreate(savedInstanceState)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
@@ -50,10 +53,12 @@ class DashboardFragment : HomeBaseFragment() {
         dashboardFragmentBinding.viewModel = dashboardViewModel
 
         //put the value of available balance from api
-        sharePrefRepo.balance=50
-
-        dashboardFragmentBinding.tvAvailableBalance.text = sharePrefRepo.balance.toString()
-
+        sharePrefRepo.balance=199
+        dashboardFragmentBinding.tvAvailableBalance.text = "₹ ${sharePrefRepo.balance}"
+        val textColor = context?.let { getColorForBalance(sharePrefRepo.balance, it) }
+        if (textColor != null) {
+            dashboardFragmentBinding.tvAvailableBalance.setTextColor(textColor)
+        }
         return dashboardFragmentBinding.root
     }
 
@@ -127,6 +132,14 @@ class DashboardFragment : HomeBaseFragment() {
                 Toast.LENGTH_SHORT
             ).show()
 
+        }
+    }
+
+    private fun getColorForBalance(balance: Int,context: Context): Int {
+        return when {
+            balance < 50 -> ContextCompat.getColor(context,R.color.red_200)
+            balance <= 200 ->  ContextCompat.getColor(context,R.color.yellow_200)
+            else ->  ContextCompat.getColor(context,R.color.green_900)
         }
     }
 }

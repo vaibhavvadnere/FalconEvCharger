@@ -11,5 +11,7 @@
     <color name="bottom_dark">#35383F</color>
     <color name="green_900">#01B763</color>
     <color name="greyscale_900">#212121</color>
+    <color name="red_200">#F31515</color>
+    <color name="yellow_200">#FFC107</color>
     <color name="app_background_color">#F4F6FA</color>
 </resources>
