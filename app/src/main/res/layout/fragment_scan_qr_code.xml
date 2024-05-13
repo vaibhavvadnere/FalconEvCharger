@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     tools:context="com.falcon.evCharger.Scanning.ScanQRCodeFragment">
 
-    <com.journeyapps.barcodescanner.CompoundBarcodeView
+    <com.falcon.evCharger.Scanning.CustomViewfinderView
         android:id="@+id/barcode_scanner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

@@ -50,6 +50,7 @@ class GetDeviceFragment : HomeBaseFragment() {
         mActivity?.let { getDeviceFragmentViewModel.init(it) }
 
         getDeviceBinding.viewModel = getDeviceFragmentViewModel
+        getDeviceBinding.tvAvailableBalance.text = sharePrefRepo.balance.toString()
 
         return getDeviceBinding.root
     }

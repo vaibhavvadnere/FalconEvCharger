@@ -1,6 +1,7 @@
 package com.falcon.evCharger.Scanning
 
 import BarcodeScannerHandler
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,7 +24,7 @@ import org.greenrobot.eventbus.ThreadMode
 
 
 class ScanQRCodeFragment : HomeBaseFragment(), BarcodeScannerHandler.OnBarcodeScannedListener{
-    private lateinit var barcodeView: CompoundBarcodeView
+    private lateinit var barcodeView: CustomViewfinderView
 
     private val scanQrCodeViewModel: ScanQrCodeViewModel by activityViewModels()
     private var barcodeScannerHandler: BarcodeScannerHandler? = null
@@ -42,6 +43,9 @@ class ScanQRCodeFragment : HomeBaseFragment(), BarcodeScannerHandler.OnBarcodeSc
         val view = inflater.inflate(R.layout.fragment_scan_qr_code, container, false)
         mActivity?.let { scanQrCodeViewModel.init(it) }
         barcodeView = view.findViewById(R.id.barcode_scanner)
+
+        val viewfinderView = barcodeView.viewFinder
+        viewfinderView.setMaskColor(Color.argb(128, 80, 80, 80))
 
         barcodeScannerHandler = BarcodeScannerHandler(requireContext(), barcodeView,this)
         return view

@@ -24,6 +24,8 @@ public class SharePrefRepo {
     private final String IMG_NAME = "img_name";
     private final String LOCATION_ID = "location_id";
 
+    private final String BALANCE = "balance";
+
     SharePrefRepo() {
         mcareAlertSharedpref = FalconEvChargerApplication.getApplicationInstance().getSharedPreferences(Constants.FALCON_EV_CHARGER_SHARED_DATA, 0);
         mcareAlertSharedprefEditor = mcareAlertSharedpref.edit();
@@ -175,6 +177,10 @@ public class SharePrefRepo {
         mcareAlertSharedprefEditor.putString(LONGI, Longitude);
         mcareAlertSharedprefEditor.apply();
     }
+    public void setBalance(int balance) {
+        mcareAlertSharedprefEditor.putInt(BALANCE, balance);
+        mcareAlertSharedprefEditor.apply();
+    }
 
     public String getLongitude() {
         return mcareAlertSharedpref.getString(LONGI, "");
@@ -198,6 +204,10 @@ public class SharePrefRepo {
 
     public boolean getBoolean(String key) {
         return mcareAlertSharedpref.getBoolean(key, false);
+    }
+
+    public int getBalance() {
+        return  mcareAlertSharedpref.getInt(BALANCE, 0);
     }
 
 }

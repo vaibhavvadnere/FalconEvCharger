@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.falcon.evCharger.base.HomeBaseFragment
 import com.falcon.evCharger.dashboard.viewModel.DashboardViewModel
+import com.falcon.evCharger.data.repositry.SharePrefRepo
 import com.falcon.evCharger.util.NetConnection
 import com.falcon.evcharger.R
 import com.falcon.evcharger.databinding.DashboardFragmentBinding
@@ -28,6 +29,7 @@ class DashboardFragment : HomeBaseFragment() {
     private val CAMERA_PERMISSION_REQUEST_CODE = 100
     private val dashboardViewModel: DashboardViewModel by activityViewModels()
 
+    val sharePrefRepo: SharePrefRepo = SharePrefRepo.getInstance()
     //Class to Handle all the button click
     enum class ViewOnClick {
         SCAN_QR
@@ -47,7 +49,10 @@ class DashboardFragment : HomeBaseFragment() {
 
         dashboardFragmentBinding.viewModel = dashboardViewModel
 
+        //put the value of available balance from api
+        sharePrefRepo.balance=50
 
+        dashboardFragmentBinding.tvAvailableBalance.text = sharePrefRepo.balance.toString()
 
         return dashboardFragmentBinding.root
     }
