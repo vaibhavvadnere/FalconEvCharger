@@ -13,6 +13,7 @@ import com.falcon.evCharger.data.repositry.SharePrefRepo
 import com.falcon.evCharger.getDevice.viewModel.GetDeviceFragmentViewModel
 import com.falcon.evCharger.response.GetDeviceResponse
 import com.falcon.evCharger.response.LoginDataResponse
+import com.falcon.evcharger.R
 import com.falcon.evcharger.databinding.GetDeviceFragmentBinding
 import com.google.gson.Gson
 import org.greenrobot.eventbus.EventBus
@@ -65,8 +66,19 @@ class GetDeviceFragment : HomeBaseFragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateViewComponents(response: GetDeviceResponse) {
-        getDeviceBinding.tvChargerName.text = response.User_Details.ID.toString()
+        sharePrefRepo.balance = 199
+        getDeviceBinding.tvAvailableBalance.text = "₹ ${sharePrefRepo.balance}"
+
+        val textColor = context?.let { Constants.getColor(sharePrefRepo.balance, it) }
+        if (textColor != null) {
+            getDeviceBinding.tvAvailableBalance.setTextColor(textColor)
+        }
+
+        getDeviceBinding.tvChargerName.text = response.User_Details.Device_Name
+        getDeviceBinding.tvMaxPower.text = response.User_Details.Max_Power.toString() +" V"
+        getDeviceBinding.tvPerUnitCharges.text =  getString(R.string.charges_per_unit, response.User_Details.ChargesPerUnit.toString())
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {

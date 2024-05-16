@@ -1,5 +1,9 @@
 package com.falcon.evCharger
 
+import android.content.Context
+import androidx.core.content.ContextCompat
+import com.falcon.evcharger.R
+
 object Constants {
     const val IS_TESTING_MODE = false
 
@@ -65,5 +69,14 @@ object Constants {
         DEVICE(4),
         COMPLETED(5),
         OTP(6)
+    }
+
+    val getColor: (balance: Int,context: Context) -> Int = this::getColorForBalance
+    private fun getColorForBalance(balance: Int,context: Context): Int {
+        return when {
+            balance < 50 -> ContextCompat.getColor(context, R.color.red_200)
+            balance <= 200 ->  ContextCompat.getColor(context, R.color.yellow_200)
+            else ->  ContextCompat.getColor(context, R.color.green_900)
+        }
     }
 }

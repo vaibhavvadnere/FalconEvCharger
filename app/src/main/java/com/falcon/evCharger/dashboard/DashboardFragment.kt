@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat.getColor
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import com.falcon.evCharger.Constants
 import com.falcon.evCharger.base.HomeBaseFragment
 import com.falcon.evCharger.dashboard.viewModel.DashboardViewModel
 import com.falcon.evCharger.data.repositry.SharePrefRepo
@@ -55,7 +56,7 @@ class DashboardFragment : HomeBaseFragment() {
         //put the value of available balance from api
         sharePrefRepo.balance=199
         dashboardFragmentBinding.tvAvailableBalance.text = "₹ ${sharePrefRepo.balance}"
-        val textColor = context?.let { getColorForBalance(sharePrefRepo.balance, it) }
+        val textColor = context?.let { Constants.getColor(sharePrefRepo.balance, it) }
         if (textColor != null) {
             dashboardFragmentBinding.tvAvailableBalance.setTextColor(textColor)
         }
@@ -132,14 +133,6 @@ class DashboardFragment : HomeBaseFragment() {
                 Toast.LENGTH_SHORT
             ).show()
 
-        }
-    }
-
-    private fun getColorForBalance(balance: Int,context: Context): Int {
-        return when {
-            balance < 50 -> ContextCompat.getColor(context,R.color.red_200)
-            balance <= 200 ->  ContextCompat.getColor(context,R.color.yellow_200)
-            else ->  ContextCompat.getColor(context,R.color.green_900)
         }
     }
 }
