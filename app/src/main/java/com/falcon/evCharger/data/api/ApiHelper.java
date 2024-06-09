@@ -5,8 +5,10 @@ import com.falcon.evCharger.data.model.response.Post;
 import com.falcon.evCharger.request.VerifyOtpRequest;
 import com.falcon.evCharger.response.CreateUserResponse;
 import com.falcon.evCharger.response.GetDeviceResponse;
+import com.falcon.evCharger.response.GetVehicleListResponse;
 import com.falcon.evCharger.response.LoginDataResponse;
 import com.iSay1.roamstick.data.model.request.GetDeviceRequest;
+import com.iSay1.roamstick.data.model.request.GetVehicleListRequest;
 import com.iSay1.roamstick.data.model.request.LoginRequest;
 
 import retrofit2.Call;
@@ -31,5 +33,9 @@ public class ApiHelper {
 
     public Call<GetDeviceResponse> getDevice(GetDeviceRequest deviceId) {
         return mApiService.getDevice(deviceId);
+    }
+
+    public Call<GetVehicleListResponse> getVehicleList(GetVehicleListRequest vehicleListRequest) {
+        return mApiService.getVehicleList(vehicleListRequest);
     }
 }
