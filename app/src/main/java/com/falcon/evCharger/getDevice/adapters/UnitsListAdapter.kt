@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.falcon.evCharger.response.UnitsData
 import com.falcon.evCharger.response.UserList
 import com.falcon.evcharger.R
 
-class VehicleListAdapter(
-    val context: Context, private var vehicleDataList: MutableList<UserList?>
-) : RecyclerView.Adapter<VehicleListAdapter.ViewHolder>() {
+class UnitsListAdapter(
+    val context: Context, private var unitsList: MutableList<UnitsData?>
+) : RecyclerView.Adapter<UnitsListAdapter.ViewHolder>() {
 
-    lateinit var careAlertListener: CareAlertListener
+    lateinit var itemClickListener: ItemClickListener
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView
@@ -28,8 +29,8 @@ class VehicleListAdapter(
         }
     }
 
-    public interface CareAlertListener {
-        fun onItemClick(userList: UserList?)
+    public interface ItemClickListener {
+        fun onItemClick(unitsData: UnitsData?)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,37 +41,34 @@ class VehicleListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        Log.e("vehicleDataHolder", "  :  $vehicleDataList")
+        Log.e("vehicleDataHolder", "  :  $unitsList")
 
-        holder.cbSelect.isChecked = vehicleDataList[position]!!.selected
+        holder.cbSelect.isChecked = unitsList[position]?.selected!!
 
-        holder.tvTitle.text = vehicleDataList[position]!!.Vehicle_No
+        holder.tvTitle.text = unitsList[position]!!.unitName
 
         holder.cbSelect.setOnClickListener {
 
             Log.e("cbSelectVehicleLogs", "  :  " + holder.cbSelect.isChecked)
 
-            vehicleDataList[position]!!.selected = holder.cbSelect.isChecked
-
-            careAlertListener.onItemClick(
-                vehicleDataList[position]
+            itemClickListener.onItemClick(
+                unitsList[position]
             )
         }
-
     }
 
     override fun getItemCount(): Int {
-        return vehicleDataList.size
+        return unitsList.size
     }
 
-    fun setData(_items: List<UserList?>) {
-        vehicleDataList.clear();
-        if (_items != null) vehicleDataList.addAll(_items)
+    fun setData(_items: ArrayList<UnitsData>) {
+        unitsList.clear();
+        if (_items != null) unitsList.addAll(_items)
 
         notifyDataSetChanged()
     }
 
-    fun setClickListener(mCareAlertListener: CareAlertListener) {
-        this.careAlertListener = mCareAlertListener
+    fun setClickListener(mItemClickListener: ItemClickListener) {
+        this.itemClickListener = mItemClickListener
     }
 }

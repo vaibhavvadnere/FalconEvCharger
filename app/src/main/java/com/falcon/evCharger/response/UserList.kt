@@ -10,5 +10,5 @@ data class UserList(
     val User_Name: String,
     val Vehicle_No: String,
     val Vehicle_Type: String,
-    var selected:Boolean
+    var selected:Boolean = false
 )

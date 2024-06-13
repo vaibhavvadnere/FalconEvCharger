@@ -3,18 +3,14 @@ package com.falcon.evCharger.getDevice.viewModel
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.falcon.evCharger.EVMainActivity
-import com.falcon.evCharger.Scanning.ScanQRCodeFragment
 import com.falcon.evCharger.data.api.ApiHelper
 import com.falcon.evCharger.data.api.ApiServiceImpl
 import com.falcon.evCharger.data.repositry.MainRepo
 import com.falcon.evCharger.getDevice.GetDeviceFragment
 import com.falcon.evCharger.login.LoginFragment
-import com.falcon.evCharger.response.GetDeviceResponse
 import com.falcon.evCharger.response.GetVehicleListResponse
-import com.falcon.evcharger.R
 import com.google.gson.Gson
 import com.iSay1.roamstick.data.model.request.GetVehicleListRequest
 import org.greenrobot.eventbus.EventBus
@@ -42,6 +38,9 @@ class GetDeviceFragmentViewModel : ViewModel() {
 
     fun onVehicleClicked(view: View) {
         EventBus.getDefault().post(GetDeviceFragment.ViewOnClick.GET_VEHICLES)
+    }
+    fun onSelectUnitClicked(view: View) {
+        EventBus.getDefault().post(GetDeviceFragment.ViewOnClick.SELECT_UNITS)
     }
 
     fun getVehicleList(getVehicleListRequest: GetVehicleListRequest) {

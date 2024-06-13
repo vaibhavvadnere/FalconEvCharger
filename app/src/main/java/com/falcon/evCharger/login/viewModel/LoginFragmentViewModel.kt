@@ -71,11 +71,10 @@ class LoginFragmentViewModel : ViewModel() {
                 override fun onFailure(call: Call<LoginDataResponse>, t: Throwable) {
                     t.printStackTrace()
 
-
                     Log.e("loginLogs", ":Failed:" + t.message)
                     Toast.makeText(mActivity, R.string.something_went_wrong, Toast.LENGTH_SHORT).show()
 
-                   EventBus.getDefault().post(LoginFragment.UpdateEvent.LOGIN_FAILED)
+                    EventBus.getDefault().post(LoginFragment.UpdateEvent.LOGIN_FAILED)
 
                 }
             })
