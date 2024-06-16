@@ -11,23 +11,25 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.falcon.evCharger.Constants
 import com.falcon.evCharger.base.HomeBaseFragment
+import com.falcon.evCharger.data.repositry.SharePrefRepo
 import com.falcon.evCharger.login.viewModel.ScanQrCodeViewModel
 import com.falcon.evCharger.response.GetDeviceResponse
 import com.falcon.evCharger.util.NetConnection
 import com.falcon.evcharger.R
 import com.google.gson.Gson
 import com.iSay1.roamstick.data.model.request.GetDeviceRequest
-import com.journeyapps.barcodescanner.CompoundBarcodeView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 
-class ScanQRCodeFragment : HomeBaseFragment(), BarcodeScannerHandler.OnBarcodeScannedListener{
+class ScanQRCodeFragment : HomeBaseFragment(), BarcodeScannerHandler.OnBarcodeScannedListener {
     private lateinit var barcodeView: CustomViewfinderView
 
     private val scanQrCodeViewModel: ScanQrCodeViewModel by activityViewModels()
     private var barcodeScannerHandler: BarcodeScannerHandler? = null
+    private val sharePrefRepo = SharePrefRepo.getInstance()
+
     enum class UpdateEvent {
         SCAN_SUCCESS, SCAN_FAILED
     }
@@ -47,7 +49,7 @@ class ScanQRCodeFragment : HomeBaseFragment(), BarcodeScannerHandler.OnBarcodeSc
         val viewfinderView = barcodeView.viewFinder
         viewfinderView.setMaskColor(Color.argb(128, 80, 80, 80))
 
-        barcodeScannerHandler = BarcodeScannerHandler(requireContext(), barcodeView,this)
+        barcodeScannerHandler = BarcodeScannerHandler(requireContext(), barcodeView, this)
         return view
     }
 
@@ -58,7 +60,6 @@ class ScanQRCodeFragment : HomeBaseFragment(), BarcodeScannerHandler.OnBarcodeSc
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
-
 
 
     override fun onStart() {
@@ -84,14 +85,16 @@ class ScanQRCodeFragment : HomeBaseFragment(), BarcodeScannerHandler.OnBarcodeSc
         EventBus.getDefault().unregister(this)
         super.onStop()
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(getDeviceResponse: GetDeviceResponse) {
         hideDialog()
         Log.e("getDeviceResponseLogs", ":" + Gson().toJson(getDeviceResponse))
         val bundle = Bundle()
         bundle.putParcelable(Constants.DEVICE_RESPONSE, getDeviceResponse)
-        mActivity?.navController?.navigate(R.id.action_get_device,bundle)
+        mActivity?.navController?.navigate(R.id.action_get_device, bundle)
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(updateEvent: UpdateEvent) {
         when (updateEvent) {
@@ -107,15 +110,20 @@ class ScanQRCodeFragment : HomeBaseFragment(), BarcodeScannerHandler.OnBarcodeSc
 
             }
         }
-}
+    }
+
     override fun onBarcodeScanned(barcode: String?) {
         Log.e("qr_scanned", ":success:")
         if (NetConnection.checkConnection(requireActivity())) {
             val qrCodeText = barcode?.substringAfter("-", "")
             var getDeviceRequest: GetDeviceRequest = GetDeviceRequest()
             getDeviceRequest.Device_ID = qrCodeText
-            showDialog()
-            scanQrCodeViewModel.getDevice(getDeviceRequest)
+            if (!getDeviceRequest.Device_ID.equals("")) {
+                sharePrefRepo.deviceId = getDeviceRequest.Device_ID
+                getDeviceRequest.Device_ID = qrCodeText
+                showDialog()
+                scanQrCodeViewModel.getDevice(getDeviceRequest)
+            }
         } else {
             hideDialog()
             Toast.makeText(

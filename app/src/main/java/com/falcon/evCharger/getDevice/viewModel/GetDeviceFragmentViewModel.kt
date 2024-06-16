@@ -9,9 +9,12 @@ import com.falcon.evCharger.data.api.ApiHelper
 import com.falcon.evCharger.data.api.ApiServiceImpl
 import com.falcon.evCharger.data.repositry.MainRepo
 import com.falcon.evCharger.getDevice.GetDeviceFragment
+import com.falcon.evCharger.getDevice.getDeviceResponses
 import com.falcon.evCharger.login.LoginFragment
+import com.falcon.evCharger.response.GetStartChargingResponse
 import com.falcon.evCharger.response.GetVehicleListResponse
 import com.google.gson.Gson
+import com.iSay1.roamstick.data.model.request.GetStartChargingRequest
 import com.iSay1.roamstick.data.model.request.GetVehicleListRequest
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
@@ -36,6 +39,10 @@ class GetDeviceFragmentViewModel : ViewModel() {
         EventBus.getDefault().post(LoginFragment.ViewOnClick.LOG_IN)
     }
 
+    fun onStartCharging(view: View) {
+        EventBus.getDefault().post(GetDeviceFragment.ViewOnClick.START_CHARGING)
+    }
+
     fun onVehicleClicked(view: View) {
         EventBus.getDefault().post(GetDeviceFragment.ViewOnClick.GET_VEHICLES)
     }
@@ -57,7 +64,9 @@ class GetDeviceFragmentViewModel : ViewModel() {
                         )
 
                         if (response.body()?.Result == true) {
-                            EventBus.getDefault().post(response.body())
+                         //   EventBus.getDefault().post(response.body())
+                            EventBus.getDefault().post(getDeviceResponses.VehicleListResponse(response.body()))
+
                         } else {
                             EventBus.getDefault().post(GetDeviceFragment.UpdateEvent.FAILED)
                         }
@@ -80,5 +89,45 @@ class GetDeviceFragmentViewModel : ViewModel() {
             })
         }
     }
+
+    fun getStartCharging(getStartChargingRequest: GetStartChargingRequest) {
+
+        if (mainRepo != null) {
+            mainRepo!!.getStartCharging(getStartChargingRequest).enqueue(object : Callback<GetStartChargingResponse> {
+                override fun onResponse(
+                    call: Call<GetStartChargingResponse>, response: Response<GetStartChargingResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.e(
+                            "get_vehice_log", ":Success:" + Gson().toJson(response.body())
+                        )
+
+                        if (response.body()?.Result == true) {
+                            EventBus.getDefault().post(getDeviceResponses.StartChargingResponse(response.body()))
+                        } else {
+                            EventBus.getDefault().post(GetDeviceFragment.UpdateEvent.FAILED)
+                        }
+
+                    } else {
+                        Log.e("get_vehice_log", ":FailedOnResponse:")
+                        EventBus.getDefault().post(GetDeviceFragment.UpdateEvent.FAILED)
+
+                    }
+                }
+
+                override fun onFailure(call: Call<GetStartChargingResponse>, t: Throwable) {
+                    t.printStackTrace()
+
+
+                    Log.e("get_vehice_log", ":Failed:" + t.message)
+                    EventBus.getDefault().post(GetDeviceFragment.UpdateEvent.FAILED)
+
+                }
+            })
+        }
+
+    }
+
+
 
 }

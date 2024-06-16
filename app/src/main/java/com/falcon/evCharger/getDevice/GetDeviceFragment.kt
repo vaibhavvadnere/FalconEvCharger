@@ -19,12 +19,14 @@ import com.falcon.evCharger.getDevice.adapters.UnitsListAdapter
 import com.falcon.evCharger.getDevice.adapters.VehicleListAdapter
 import com.falcon.evCharger.getDevice.viewModel.GetDeviceFragmentViewModel
 import com.falcon.evCharger.response.GetDeviceResponse
+import com.falcon.evCharger.response.GetStartChargingResponse
 import com.falcon.evCharger.response.GetVehicleListResponse
 import com.falcon.evCharger.response.UnitsData
 import com.falcon.evCharger.response.UserList
 import com.falcon.evcharger.R
 import com.falcon.evcharger.databinding.GetDeviceFragmentBinding
 import com.google.gson.Gson
+import com.iSay1.roamstick.data.model.request.GetStartChargingRequest
 import com.iSay1.roamstick.data.model.request.GetVehicleListRequest
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -54,7 +56,7 @@ class GetDeviceFragment : HomeBaseFragment() {
 
     //Class to Handle all the button click
     enum class ViewOnClick {
-        GET_VEHICLES, SIGN_UP, SELECT_UNITS,
+        GET_VEHICLES, SIGN_UP, SELECT_UNITS,START_CHARGING,
     }
 
     enum class UpdateEvent {
@@ -116,6 +118,20 @@ class GetDeviceFragment : HomeBaseFragment() {
 
         getDeviceFragmentViewModel.getVehicleList(gtVehicleListRequest)
     }
+    private fun getStartCharging(
+        deviceId: String?,
+        selectedVehicle: UserList?,
+        selectedUnit: UnitsData?
+    ) {
+        val getStartChargingRequest: GetStartChargingRequest = GetStartChargingRequest()
+        getStartChargingRequest.Device_ID = deviceId
+        getStartChargingRequest.Vehicle_No = selectedVehicle?.Vehicle_No
+        getStartChargingRequest.Unit = selectedUnit?.unitName
+        Log.e("onclick_start_charging_log","getStartCharging -> device id -> "+SharePrefRepo.getInstance().deviceId+
+                "Vehicle_No -> "+selectedVehicle+" -> Unit "+selectedUnit)
+
+            getDeviceFragmentViewModel.getStartCharging(getStartChargingRequest)
+    }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
@@ -166,6 +182,16 @@ class GetDeviceFragment : HomeBaseFragment() {
                 }*/
             }
 
+            ViewOnClick.START_CHARGING -> {
+                Log.e("onclick_start_charging_log", ":clicked  START_CHARGING:")
+
+                if (selectedVehicle !=null && selectedUnit!=null) {
+                    showDialog()
+                    getStartCharging(SharePrefRepo.getInstance().deviceId,selectedVehicle,selectedUnit)
+
+                }
+            }
+
             else -> {
 
             }
@@ -173,6 +199,52 @@ class GetDeviceFragment : HomeBaseFragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(response: getDeviceResponses) {
+        when (response) {
+            is getDeviceResponses.VehicleListResponse -> handleVehicleListResponse(response.vehicleListResponse)
+            is getDeviceResponses.StartChargingResponse -> handleStartChargingResponse(response.startChargingResponse)
+            else -> {}
+        }
+    }
+
+    private fun handleStartChargingResponse(response: GetStartChargingResponse?) {
+        hideDialog()
+        Log.e("getVehicleListLog", " : log : charging started successfully " )
+
+        if (response?.Result == true){
+        Toast.makeText(context,response.Message,Toast.LENGTH_SHORT).show()
+        mActivity?.navController?.navigate(R.id.action_menu_in)
+    }}
+
+    private fun handleVehicleListResponse(vehicleListResponse: GetVehicleListResponse?) {
+        Log.e("getVehicleListLog", " : log vehile: " + Gson().toJson(vehicleListResponse))
+
+        val data = vehicleListResponse?.User_List
+        val items = data?.map { it.Vehicle_No }?.toTypedArray()
+        Log.e("vehicle_data_log", "" + items)
+
+        hideDialog()
+
+        vehicleListResponse?.User_List.let { it ->
+            vehicleList = it
+        }
+
+        if (vehicleList?.isEmpty() == true) {
+            showVehiclesDialog()
+        } else {
+            vehicleList?.forEachIndexed { position, vehicleData ->
+
+                if (selectedVehicle != null && selectedVehicle?.Vehicle_No == vehicleData.Vehicle_No) {
+                    vehicleList!![position].selected = true
+                    getDeviceBinding.tvSelectVehicle.text = vehicleData.Vehicle_No
+                } else {
+                    vehicleList!![position].selected = false
+                }
+            }
+        }
+    }
+
+    /*@Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(vehicleListResponse: GetVehicleListResponse) {
         Log.e("getVehicleListLog", " : log : " + Gson().toJson(vehicleListResponse))
 
@@ -199,7 +271,7 @@ class GetDeviceFragment : HomeBaseFragment() {
                 }
             }
         }
-    }
+    }*/
 
     private fun showVehiclesDialog() {
         Log.e("showVehiclesDialog", ":" + vehicleList?.size)
@@ -307,6 +379,7 @@ class GetDeviceFragment : HomeBaseFragment() {
             unitsData30.unitName = "30"
             val unitsDataFC: UnitsData = UnitsData()
             unitsDataFC.unitName = "Full Charge"
+            unitsList.addAll(listOf(unitsData5, unitsData10, unitsData15, unitsData20, unitsData25, unitsData30, unitsDataFC))
         }
 
 

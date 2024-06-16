@@ -23,6 +23,7 @@ public class SharePrefRepo {
     private final String AGE = "age";
     private final String IMG_NAME = "img_name";
     private final String LOCATION_ID = "location_id";
+    private final String DEVICE_ID = "device_id";
 
     private final String BALANCE = "balance";
 
@@ -53,6 +54,15 @@ public class SharePrefRepo {
 
     public int getLocationId() {
         return mcareAlertSharedpref.getInt(LOCATION_ID, -1);
+    }
+
+    public void setDeviceId(String  device_id) {
+        mcareAlertSharedprefEditor.putString(DEVICE_ID, device_id);
+        mcareAlertSharedprefEditor.apply();
+    }
+
+    public String  getDeviceId() {
+        return mcareAlertSharedpref.getString(DEVICE_ID, "");
     }
 
     public void setImageName(String img) {

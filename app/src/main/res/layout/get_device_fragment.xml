@@ -307,7 +307,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="40dp"
             android:background="@drawable/button_background_container"
-            android:onClick="@{viewModel::onLoginClick}"
+            android:onClick="@{viewModel::onStartCharging}"
             android:text="@string/start_charging"
             android:textAllCaps="false"
             android:textColor="@color/white"

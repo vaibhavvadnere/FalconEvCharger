@@ -155,9 +155,9 @@
         android:label="fragment_get_device"
         tools:layout="@layout/get_device_fragment">
 
-        <!--        <action
+                <action
                     android:id="@+id/action_menu_in"
-                    app:destination="@+id/frag_menu" />-->
+                    app:destination="@+id/frag_menu" />
 
     </fragment>
 </navigation>

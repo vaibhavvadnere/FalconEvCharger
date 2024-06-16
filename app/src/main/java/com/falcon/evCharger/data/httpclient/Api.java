@@ -5,9 +5,11 @@ import com.falcon.evCharger.data.model.response.Post;
 import com.falcon.evCharger.request.VerifyOtpRequest;
 import com.falcon.evCharger.response.CreateUserResponse;
 import com.falcon.evCharger.response.GetDeviceResponse;
+import com.falcon.evCharger.response.GetStartChargingResponse;
 import com.falcon.evCharger.response.GetVehicleListResponse;
 import com.falcon.evCharger.response.LoginDataResponse;
 import com.iSay1.roamstick.data.model.request.GetDeviceRequest;
+import com.iSay1.roamstick.data.model.request.GetStartChargingRequest;
 import com.iSay1.roamstick.data.model.request.GetVehicleListRequest;
 import com.iSay1.roamstick.data.model.request.LoginRequest;
 
@@ -33,4 +35,7 @@ public interface Api {
 
     @POST("api/Get_Vehicle_List")
     Call<GetVehicleListResponse> getVehicleList(@Body GetVehicleListRequest vehicleList);
+
+    @POST("api/Start_Charging")
+    Call<GetStartChargingResponse> getStartCharging(@Body GetStartChargingRequest startChargingRequest);
 }
