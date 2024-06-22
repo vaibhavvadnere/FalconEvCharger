@@ -54,7 +54,8 @@ class LoginFragment : HomeBaseFragment() {
 
         logInFragmentBinding.viewModel = loginFragmentViewModel
 
-        logInFragmentBinding.edtPhoneNumber.setText("9890199009")
+        if (Constants.IS_TESTING_MODE)
+            logInFragmentBinding.edtPhoneNumber.setText("9890199009")
 
         return logInFragmentBinding.root
     }
