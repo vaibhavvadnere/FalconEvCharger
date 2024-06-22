@@ -41,4 +41,10 @@
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
     <string name="select_unit">Select Unit</string>
+    <string name="falcon_success_message">Charging started successfully</string>
+    <string name="falcon_success_sub_header">Charging started for vehicle no. %1$s from device id %2$s</string>
+
+    <string name="falcon_success_ok">OK</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

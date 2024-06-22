@@ -156,8 +156,18 @@
         tools:layout="@layout/get_device_fragment">
 
                 <action
-                    android:id="@+id/action_menu_in"
-                    app:destination="@+id/frag_menu" />
+                    android:id="@+id/action_success_in"
+                    app:destination="@+id/frag_success" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/frag_success"
+        android:name="com.falcon.evCharger.getDevice.SuccessFragment"
+        android:label="fragment_success"
+        tools:layout="@layout/fragment_success">
+
+
 
     </fragment>
 </navigation>

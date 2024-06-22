@@ -32,6 +32,7 @@ object Constants {
     const val Phone_Number = "PHONE_NUMBER"
     const val USER_ADDRESS = "USER_ADDRESS"
     const val VEHICLE_NO = "VEHICLE_NO"
+    const val DEVICE_ID = "DEVICE_ID"
     const val VEHICLE_TYPE = "VEHICLE_TYPE"
     const val IS_ACTIVE = "IS_ACTIVE"
     const val DEVICE_RESPONSE = "DEVICE_RESPONSE"

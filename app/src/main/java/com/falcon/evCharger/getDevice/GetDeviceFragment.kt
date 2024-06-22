@@ -102,7 +102,7 @@ class GetDeviceFragment : HomeBaseFragment() {
             getDeviceBinding.tvAvailableBalance.setTextColor(textColor)
         }
 
-        getDeviceBinding.tvChargerName.text = response.User_Details.Device_Name
+        getDeviceBinding.tvChargerName.text = response.User_Details.Device_Name  +" - ${response.User_Details.Device_ID ?: "NA"}"
         getDeviceBinding.tvMaxPower.text = response.User_Details.Max_Power.toString() + " V"
         getDeviceBinding.tvPerUnitCharges.text = getString(R.string.charges_per_unit, response.User_Details.ChargesPerUnit.toString())
 
@@ -212,8 +212,10 @@ class GetDeviceFragment : HomeBaseFragment() {
         Log.e("getVehicleListLog", " : log : charging started successfully " )
 
         if (response?.Result == true){
-        Toast.makeText(context,response.Message,Toast.LENGTH_SHORT).show()
-        mActivity?.navController?.navigate(R.id.action_menu_in)
+            val bundle = Bundle()
+            bundle.putString(Constants.VEHICLE_NO, selectedVehicle?.Vehicle_No)
+            bundle.putString(Constants.DEVICE_ID, SharePrefRepo.getInstance().deviceId)
+        mActivity?.navController?.navigate(R.id.action_success_in,bundle)
     }}
 
     private fun handleVehicleListResponse(vehicleListResponse: GetVehicleListResponse?) {
@@ -236,7 +238,7 @@ class GetDeviceFragment : HomeBaseFragment() {
 
                 if (selectedVehicle != null && selectedVehicle?.Vehicle_No == vehicleData.Vehicle_No) {
                     vehicleList!![position].selected = true
-                    getDeviceBinding.tvSelectVehicle.text = vehicleData.Vehicle_No
+                    getDeviceBinding.tvSelectVehicle.text = vehicleData.Vehicle_No +" - ${selectedVehicle?.Vehicle_Type ?: ""}"
                 } else {
                     vehicleList!![position].selected = false
                 }
@@ -273,6 +275,7 @@ class GetDeviceFragment : HomeBaseFragment() {
         }
     }*/
 
+    @SuppressLint("SetTextI18n")
     private fun showVehiclesDialog() {
         Log.e("showVehiclesDialog", ":" + vehicleList?.size)
 
@@ -341,7 +344,7 @@ class GetDeviceFragment : HomeBaseFragment() {
 
             vehicleDialog.dismiss()
 
-            if (selectedVehicle != null) getDeviceBinding.tvSelectVehicle.text = selectedVehicle?.Vehicle_No
+            if (selectedVehicle != null) getDeviceBinding.tvSelectVehicle.text = selectedVehicle?.Vehicle_No + " - ${selectedVehicle?.Vehicle_Type ?: ""}"
         }
 
         vehicleDialog.show()
