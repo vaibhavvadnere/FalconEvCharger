@@ -378,7 +378,7 @@ class GetDeviceFragment : HomeBaseFragment() {
     private fun showUnitsDialog() {
 
         val unitsList: ArrayList<UnitsData> = ArrayList()
-        if (selectedVehicle?.Vehicle_Type.equals("Two Wheeler")) {
+        if (selectedVehicle?.Vehicle_Type.equals("Two Wheeler")|| selectedVehicle?.Vehicle_Type.equals("Three Wheeler")) {
             unitsList.clear()
 
             val unitsData1: UnitsData = UnitsData()
@@ -389,6 +389,7 @@ class GetDeviceFragment : HomeBaseFragment() {
             unitsData5.unitName = "5"
             val unitsDataFC: UnitsData = UnitsData()
             unitsDataFC.unitName = "Full Charge"
+            unitsList.addAll(listOf(unitsData1, unitsData3, unitsData5, unitsDataFC))
 
         } else if (selectedVehicle?.Vehicle_Type.equals("Four Wheeler")) {
             unitsList.clear()
