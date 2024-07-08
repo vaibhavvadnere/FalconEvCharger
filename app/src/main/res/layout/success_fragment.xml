@@ -35,9 +35,9 @@
             style="@style/text_header_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/green_900"
             android:layout_marginVertical="20dp"
             android:text="@string/falcon_success_message"
+            android:textColor="@color/green_900"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -50,11 +50,11 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginVertical="20dp"
+            android:gravity="center"
             android:text="@string/falcon_success_sub_header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_header" />
-
 
         <Button
             android:id="@+id/btn_start_scanner"
@@ -64,18 +64,28 @@
             android:layout_marginVertical="80dp"
             android:layout_marginBottom="76dp"
             android:background="@drawable/button_background_container"
-            android:onClick="@{viewModel::okSuccess}"
+            android:onClick="@{viewModel::okOkClick}"
             android:text="@string/falcon_success_ok"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorLink="@color/green_900"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_stop_charging"
+            style="@style/text_style_14_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:onClick="@{viewModel::onStopChargingClick}"
+            android:padding="5dp"
+            android:text="@string/stop_charging"
+            android:textColor="@color/red_200"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/btn_start_scanner" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 </layout>

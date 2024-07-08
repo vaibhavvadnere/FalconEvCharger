@@ -9,10 +9,12 @@ import com.falcon.evCharger.response.GetDeviceResponse;
 import com.falcon.evCharger.response.GetStartChargingResponse;
 import com.falcon.evCharger.response.GetVehicleListResponse;
 import com.falcon.evCharger.response.LoginDataResponse;
+import com.falcon.evCharger.response.StopChargingResponse;
 import com.iSay1.roamstick.data.model.request.GetDeviceRequest;
 import com.iSay1.roamstick.data.model.request.GetStartChargingRequest;
 import com.iSay1.roamstick.data.model.request.GetVehicleListRequest;
 import com.iSay1.roamstick.data.model.request.LoginRequest;
+import com.iSay1.roamstick.data.model.request.StopChargingRequest;
 
 import retrofit2.Call;
 
@@ -46,5 +48,9 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public Call<GetStartChargingResponse> getStartCharging(GetStartChargingRequest startChargingRequest) {
         return HttpClient.getHttpApi().getStartCharging(startChargingRequest);
+    }
+    @Override
+    public Call<StopChargingResponse> stopCharging(StopChargingRequest stopChargingRequest) {
+        return HttpClient.getHttpApi().stopCharging(stopChargingRequest);
     }
 }

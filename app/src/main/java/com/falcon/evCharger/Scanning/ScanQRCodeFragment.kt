@@ -30,6 +30,7 @@ class ScanQRCodeFragment : HomeBaseFragment(), BarcodeScannerHandler.OnBarcodeSc
     private var barcodeScannerHandler: BarcodeScannerHandler? = null
     private val sharePrefRepo = SharePrefRepo.getInstance()
 
+    private var isGetDeviceDataApiCalled = false
     enum class UpdateEvent {
         SCAN_SUCCESS, SCAN_FAILED
     }
@@ -100,6 +101,8 @@ class ScanQRCodeFragment : HomeBaseFragment(), BarcodeScannerHandler.OnBarcodeSc
         when (updateEvent) {
 
             UpdateEvent.SCAN_FAILED -> {
+                isGetDeviceDataApiCalled = false
+
                 barcodeView.decodeContinuous(null)
                 hideDialog()
 
@@ -121,8 +124,12 @@ class ScanQRCodeFragment : HomeBaseFragment(), BarcodeScannerHandler.OnBarcodeSc
             if (!getDeviceRequest.Device_ID.equals("")) {
                 sharePrefRepo.deviceId = getDeviceRequest.Device_ID
                 getDeviceRequest.Device_ID = qrCodeText
-                showDialog()
-                scanQrCodeViewModel.getDevice(getDeviceRequest)
+
+                if (!isGetDeviceDataApiCalled) {
+                    showDialog()
+                    isGetDeviceDataApiCalled = true
+                    scanQrCodeViewModel.getDevice(getDeviceRequest)
+                }
             }
         } else {
             hideDialog()

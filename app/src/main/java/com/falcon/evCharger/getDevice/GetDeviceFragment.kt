@@ -56,7 +56,7 @@ class GetDeviceFragment : HomeBaseFragment() {
 
     //Class to Handle all the button click
     enum class ViewOnClick {
-        GET_VEHICLES, SIGN_UP, SELECT_UNITS,START_CHARGING,
+        GET_VEHICLES, SIGN_UP, SELECT_UNITS, START_CHARGING,
     }
 
     enum class UpdateEvent {
@@ -94,16 +94,22 @@ class GetDeviceFragment : HomeBaseFragment() {
 
     @SuppressLint("SetTextI18n")
     private fun updateViewComponents(response: GetDeviceResponse) {
+        Log.e("responseLogs", " : " + response)
+
         sharePrefRepo.balance = 199
         getDeviceBinding.tvAvailableBalance.text = "₹ ${sharePrefRepo.balance}"
+
+        getDeviceBinding.tvSocietyName.text = response.User_Details.Society_Name ?: "NA"
+
 
         val textColor = context?.let { Constants.getColor(sharePrefRepo.balance, it) }
         if (textColor != null) {
             getDeviceBinding.tvAvailableBalance.setTextColor(textColor)
         }
 
-        getDeviceBinding.tvChargerName.text = response.User_Details.Device_Name  +" - ${response.User_Details.Device_ID ?: "NA"}"
-        getDeviceBinding.tvMaxPower.text = response.User_Details.Max_Power.toString() + " V"
+        getDeviceBinding.tvChargerName.text = response.User_Details.Device_Name + " - ${response.User_Details.Device_ID ?: "NA"}"
+        getDeviceBinding.tvMaxPower.text = "3.3 KW - " + response.User_Details.Max_Power.toString() + " V"
+        getDeviceBinding.tvChargerId.text = response.User_Details.Device_ID.toString()
         getDeviceBinding.tvPerUnitCharges.text = getString(R.string.charges_per_unit, response.User_Details.ChargesPerUnit.toString())
 
         showDialog()
@@ -118,6 +124,7 @@ class GetDeviceFragment : HomeBaseFragment() {
 
         getDeviceFragmentViewModel.getVehicleList(gtVehicleListRequest)
     }
+
     private fun getStartCharging(
         deviceId: String?,
         selectedVehicle: UserList?,
@@ -127,10 +134,12 @@ class GetDeviceFragment : HomeBaseFragment() {
         getStartChargingRequest.Device_ID = deviceId
         getStartChargingRequest.Vehicle_No = selectedVehicle?.Vehicle_No
         getStartChargingRequest.Unit = selectedUnit?.unitName
-        Log.e("onclick_start_charging_log","getStartCharging -> device id -> "+SharePrefRepo.getInstance().deviceId+
-                "Vehicle_No -> "+selectedVehicle+" -> Unit "+selectedUnit)
+        Log.e(
+            "onclick_start_charging_log", "getStartCharging -> device id -> " + SharePrefRepo.getInstance().deviceId +
+                    "Vehicle_No -> " + selectedVehicle + " -> Unit " + selectedUnit
+        )
 
-            getDeviceFragmentViewModel.getStartCharging(getStartChargingRequest)
+        getDeviceFragmentViewModel.getStartCharging(getStartChargingRequest)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -185,10 +194,12 @@ class GetDeviceFragment : HomeBaseFragment() {
             ViewOnClick.START_CHARGING -> {
                 Log.e("onclick_start_charging_log", ":clicked  START_CHARGING:")
 
-                if (selectedVehicle !=null && selectedUnit!=null) {
-                    showDialog()
-                    getStartCharging(SharePrefRepo.getInstance().deviceId,selectedVehicle,selectedUnit)
+                if (selectedVehicle != null && selectedUnit != null) {
 
+                    if (validate()) {
+                        showDialog()
+                        getStartCharging(SharePrefRepo.getInstance().deviceId, selectedVehicle, selectedUnit)
+                    }
                 }
             }
 
@@ -196,6 +207,18 @@ class GetDeviceFragment : HomeBaseFragment() {
 
             }
         }
+    }
+
+    private fun validate(): Boolean {
+
+        if (selectedVehicle == null) {
+            Toast.makeText(mActivity, "Please select the vehicle", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (selectedUnit == null) {
+            Toast.makeText(mActivity, "Please select the unit", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -209,14 +232,16 @@ class GetDeviceFragment : HomeBaseFragment() {
 
     private fun handleStartChargingResponse(response: GetStartChargingResponse?) {
         hideDialog()
-        Log.e("getVehicleListLog", " : log : charging started successfully " )
+        Log.e("getVehicleListLog", " : log : charging started successfully ")
 
-        if (response?.Result == true){
+        if (response?.Result == true) {
             val bundle = Bundle()
             bundle.putString(Constants.VEHICLE_NO, selectedVehicle?.Vehicle_No)
+            bundle.putString(Constants.VEHICLE_TYPE, selectedVehicle?.Vehicle_Type)
             bundle.putString(Constants.DEVICE_ID, SharePrefRepo.getInstance().deviceId)
-        mActivity?.navController?.navigate(R.id.action_success_in,bundle)
-    }}
+            mActivity?.navController?.navigate(R.id.action_success_in, bundle)
+        }
+    }
 
     private fun handleVehicleListResponse(vehicleListResponse: GetVehicleListResponse?) {
         Log.e("getVehicleListLog", " : log vehile: " + Gson().toJson(vehicleListResponse))
@@ -238,7 +263,7 @@ class GetDeviceFragment : HomeBaseFragment() {
 
                 if (selectedVehicle != null && selectedVehicle?.Vehicle_No == vehicleData.Vehicle_No) {
                     vehicleList!![position].selected = true
-                    getDeviceBinding.tvSelectVehicle.text = vehicleData.Vehicle_No +" - ${selectedVehicle?.Vehicle_Type ?: ""}"
+                    getDeviceBinding.tvSelectVehicle.text = vehicleData.Vehicle_No + " - ${selectedVehicle?.Vehicle_Type ?: ""}"
                 } else {
                     vehicleList!![position].selected = false
                 }

@@ -33,6 +33,7 @@ class DashboardFragment : HomeBaseFragment() {
     private val dashboardViewModel: DashboardViewModel by activityViewModels()
 
     val sharePrefRepo: SharePrefRepo = SharePrefRepo.getInstance()
+
     //Class to Handle all the button click
     enum class ViewOnClick {
         SCAN_QR
@@ -44,17 +45,21 @@ class DashboardFragment : HomeBaseFragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         // Inflate the layout for this fragment
         dashboardFragmentBinding = DashboardFragmentBinding.inflate(inflater, container, false)
 
         mActivity?.let { dashboardViewModel.init(it) }
 
+        mActivity!!.unRegisterOnBackPress()
+
         dashboardFragmentBinding.viewModel = dashboardViewModel
 
         //put the value of available balance from api
-        sharePrefRepo.balance=199
+        sharePrefRepo.balance = 199
         dashboardFragmentBinding.tvAvailableBalance.text = "₹ ${sharePrefRepo.balance}"
         val textColor = context?.let { Constants.getColor(sharePrefRepo.balance, it) }
         if (textColor != null) {

@@ -9,10 +9,12 @@ import com.falcon.evCharger.response.GetDeviceResponse;
 import com.falcon.evCharger.response.GetStartChargingResponse;
 import com.falcon.evCharger.response.GetVehicleListResponse;
 import com.falcon.evCharger.response.LoginDataResponse;
+import com.falcon.evCharger.response.StopChargingResponse;
 import com.iSay1.roamstick.data.model.request.GetDeviceRequest;
 import com.iSay1.roamstick.data.model.request.GetStartChargingRequest;
 import com.iSay1.roamstick.data.model.request.GetVehicleListRequest;
 import com.iSay1.roamstick.data.model.request.LoginRequest;
+import com.iSay1.roamstick.data.model.request.StopChargingRequest;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -48,5 +50,9 @@ public class MainRepo {
 
     public Call<GetStartChargingResponse> getStartCharging(GetStartChargingRequest startChargingRequest) {
         return mApiHelper.getStartCharging(startChargingRequest);
+    }
+
+    public Call<StopChargingResponse> stopCharging(StopChargingRequest stopChargingRequest) {
+        return mApiHelper.stopCharging(stopChargingRequest);
     }
 }

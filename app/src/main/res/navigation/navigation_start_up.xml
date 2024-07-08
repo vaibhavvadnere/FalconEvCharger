@@ -48,9 +48,9 @@
         android:label="fragment_log_in"
         tools:layout="@layout/log_in_fragment">
 
-<!--        <action
-            android:id="@+id/action_menu_in"
-            app:destination="@+id/frag_menu" />-->
+        <!--        <action
+                    android:id="@+id/action_menu_in"
+                    app:destination="@+id/frag_menu" />-->
 
         <action
             android:id="@+id/action_verify_otp"
@@ -155,9 +155,9 @@
         android:label="fragment_get_device"
         tools:layout="@layout/get_device_fragment">
 
-                <action
-                    android:id="@+id/action_success_in"
-                    app:destination="@+id/frag_success" />
+        <action
+            android:id="@+id/action_success_in"
+            app:destination="@+id/frag_success" />
 
     </fragment>
 
@@ -165,9 +165,11 @@
         android:id="@+id/frag_success"
         android:name="com.falcon.evCharger.getDevice.SuccessFragment"
         android:label="fragment_success"
-        tools:layout="@layout/fragment_success">
+        tools:layout="@layout/success_fragment">
 
-
+        <action
+            android:id="@+id/action_ok_clicked"
+            app:destination="@+id/frag_menu" />
 
     </fragment>
 </navigation>

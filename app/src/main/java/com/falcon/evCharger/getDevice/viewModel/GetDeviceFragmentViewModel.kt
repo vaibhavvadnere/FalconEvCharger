@@ -46,6 +46,7 @@ class GetDeviceFragmentViewModel : ViewModel() {
     fun onVehicleClicked(view: View) {
         EventBus.getDefault().post(GetDeviceFragment.ViewOnClick.GET_VEHICLES)
     }
+
     fun onSelectUnitClicked(view: View) {
         EventBus.getDefault().post(GetDeviceFragment.ViewOnClick.SELECT_UNITS)
     }
@@ -64,7 +65,7 @@ class GetDeviceFragmentViewModel : ViewModel() {
                         )
 
                         if (response.body()?.Result == true) {
-                         //   EventBus.getDefault().post(response.body())
+                            //   EventBus.getDefault().post(response.body())
                             EventBus.getDefault().post(getDeviceResponses.VehicleListResponse(response.body()))
 
                         } else {
@@ -127,7 +128,6 @@ class GetDeviceFragmentViewModel : ViewModel() {
         }
 
     }
-
 
 
 }
