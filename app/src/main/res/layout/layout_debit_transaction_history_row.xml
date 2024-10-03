@@ -41,19 +41,19 @@
 
         <TextView
             android:id="@+id/label_device_id"
-            style="@style/text_style_14_normal"
+            style="@style/text_style_12_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_marginVertical="5dp"
             android:padding="3dp"
-            android:text="Device Id :- "
+            android:text="Device Id :"
             app:layout_constraintStart_toEndOf="@+id/tv_vehicle_number"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_device_id"
-            style="@style/text_style_14_normal"
+            style="@style/text_style_12_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
@@ -64,19 +64,19 @@
 
         <TextView
             android:id="@+id/label_used_units"
-            style="@style/text_style_14_normal"
+            style="@style/text_style_12_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_marginVertical="5dp"
             android:padding="3dp"
-            android:text="Unit :- "
+            android:text="Unit :"
             app:layout_constraintStart_toEndOf="@+id/tv_device_id"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_used_units"
-            style="@style/text_style_14_normal"
+            style="@style/text_style_12_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
@@ -88,7 +88,7 @@
 
         <TextView
             android:id="@+id/tv_date"
-            style="@style/text_style_14_normal"
+            style="@style/text_style_12_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"

@@ -3,6 +3,9 @@ package com.falcon.evCharger.history.adapters
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -61,10 +64,7 @@ class TransactionsHistoryListAdapter(
         holder.tvDeviceId.text = historyList[position]?.Device_ID
 
         try {
-            val finalDate = DTU.get_MMM_DD_FromDate(historyList[position]?.Date_Time) + " " + DTU.get_HH_MM_FromTime(historyList[position]?.Start_Time) + " to " +
-                    DTU.get_MMM_DD_FromDate(historyList[position]?.Date_Time) + " " + DTU.get_HH_MM_FromTime(historyList[position]?.End_Time)
-
-            holder.tvDate.text = finalDate
+            holder.tvDate.text = dateTimeCalculator(position)
 
             val usedAmt : Float? = historyList[position]?.Unit_Consumed?.toFloat()?.times(historyList[position]?.Unit_Rate?.toFloat()!!)
 
@@ -79,6 +79,25 @@ class TransactionsHistoryListAdapter(
         /*holder.itemView.setOnClickListener {
 //            careAlertListener.onItemClick(historyList[position])
         }*/
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun dateTimeCalculator(position: Int): SpannableString{
+        val dateStart = DTU.get_MMM_DD_FromDate(historyList[position]?.Date_Time ?: "")
+        val timeStart = DTU.get_HH_MM_FromTime(historyList[position]?.Start_Time ?: "")
+        val dateEnd = DTU.get_MMM_DD_FromDate(historyList[position]?.Date_Time ?: "")
+        val timeEnd = DTU.get_HH_MM_FromTime(historyList[position]?.End_Time ?: "")
+
+        val spannableString = SpannableString("$dateStart, $timeStart - $dateEnd, $timeEnd")
+
+        val startIndex = spannableString.indexOf(timeStart)
+        val endIndex = startIndex + timeStart.length
+        spannableString.setSpan(RelativeSizeSpan(0.8f), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        val startIndexEnd = spannableString.indexOf(timeEnd)
+        val endIndexEnd = startIndexEnd + timeEnd.length
+        spannableString.setSpan(RelativeSizeSpan(0.8f), startIndexEnd, endIndexEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        return spannableString
     }
 
     override fun getItemCount(): Int {
