@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/frag_menu"
-        android:name="com.falcon.evCharger.menuOptions.MenuFragment"
+        android:name="com.falcon.evCharger.menuOptions.MainBottomFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu">
         <action
@@ -76,12 +76,28 @@
             app:destination="@+id/frag_lets_in" />
 
         <action
-            android:id="@+id/action_add_vehicle"
-            app:destination="@+id/frag_add_vehicle" />
-
-        <action
             android:id="@+id/action_scan_qr"
             app:destination="@+id/frag_scan_qr" />
+
+        <action
+            android:id="@+id/action_profile"
+            app:destination="@+id/frag_profile" />
+
+        <action
+            android:id="@+id/action_my_vehicle"
+            app:destination="@+id/frag_vehicle" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/frag_profile"
+        android:name="com.falcon.evCharger.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/profile_fragment">
+
+        <action
+            android:id="@+id/back_to_dashboard_from_profile"
+            app:popUpTo="@+id/frag_menu" />
 
     </fragment>
 
@@ -94,21 +110,29 @@
     </fragment>
 
     <fragment
-        android:id="@+id/frag_vehicle"
-        android:name="com.falcon.evCharger.vehicle.VehiclesFragment"
-        android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu">
-
-
-    </fragment>
-
-    <fragment
         android:id="@+id/frag_setup"
         android:name="com.falcon.evCharger.setup.SetupFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu">
 
     </fragment>-->
+
+    <fragment
+        android:id="@+id/frag_vehicle"
+        android:name="com.falcon.evCharger.vehicle.VehiclesFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu">
+
+        <action
+            android:id="@+id/action_add_vehicle"
+            app:destination="@+id/frag_add_vehicle" />
+
+        <action
+            android:id="@+id/back_to_dashboard_from_vehicle"
+            app:destination="@+id/frag_menu" />
+
+
+    </fragment>
 
 
     <fragment
@@ -117,6 +141,9 @@
         android:label="fragment_menu"
         tools:layout="@layout/add_vehicles_fragment">
 
+        <action
+            android:id="@+id/back_to_vehicle_from_add_vehicle"
+            app:destination="@+id/frag_vehicle" />
 
     </fragment>
 

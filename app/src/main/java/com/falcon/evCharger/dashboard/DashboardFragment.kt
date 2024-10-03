@@ -18,9 +18,11 @@ import com.falcon.evCharger.Constants
 import com.falcon.evCharger.base.HomeBaseFragment
 import com.falcon.evCharger.dashboard.viewModel.DashboardViewModel
 import com.falcon.evCharger.data.repositry.SharePrefRepo
+import com.falcon.evCharger.response.WalletResponse
 import com.falcon.evCharger.util.NetConnection
 import com.falcon.evcharger.R
 import com.falcon.evcharger.databinding.DashboardFragmentBinding
+import com.iSay1.roamstick.data.model.request.GetTransactionHistoryRequest
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -39,6 +41,11 @@ class DashboardFragment : HomeBaseFragment() {
         SCAN_QR
     }
 
+    //Class to Handle all the Events
+    enum class UpdateEvent {
+        API_FAILED
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +53,7 @@ class DashboardFragment : HomeBaseFragment() {
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         dashboardFragmentBinding = DashboardFragmentBinding.inflate(inflater, container, false)
@@ -58,14 +64,28 @@ class DashboardFragment : HomeBaseFragment() {
 
         dashboardFragmentBinding.viewModel = dashboardViewModel
 
+        Log.e("balanceLogsN", "   :  " + sharePrefRepo.balance)
         //put the value of available balance from api
-        sharePrefRepo.balance = 199
         dashboardFragmentBinding.tvAvailableBalance.text = "₹ ${sharePrefRepo.balance}"
-        val textColor = context?.let { Constants.getColor(sharePrefRepo.balance, it) }
+
+        val textColor = context?.let { Constants.getColor(sharePrefRepo.balance.toFloat(), it) }
         if (textColor != null) {
             dashboardFragmentBinding.tvAvailableBalance.setTextColor(textColor)
         }
         return dashboardFragmentBinding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        showDialog()
+
+        val getTransactionHistoryRequest = GetTransactionHistoryRequest()
+        getTransactionHistoryRequest.UserID = SharePrefRepo.getInstance().getInt(Constants.ID).toString()
+
+        dashboardViewModel.getWalletDetails(getTransactionHistoryRequest)
+
+
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -93,8 +113,7 @@ class DashboardFragment : HomeBaseFragment() {
     fun onMessageEvent(viewOnClick: ViewOnClick) {
         when (viewOnClick) {
             ViewOnClick.SCAN_QR -> {
-                Log.e("onSignInClick", ":clicked  SIGN_IN:")
-                /*val intent = Intent(context, ScanQRCodeActivity::class.java)
+                Log.e("onSignInClick", ":clicked  SIGN_IN:")/*val intent = Intent(context, ScanQRCodeActivity::class.java)
                 mActivity?.startActivityForResult(intent, 1) // Activity is started with requestCode 2
                 hideDialog()*/
 
@@ -102,6 +121,36 @@ class DashboardFragment : HomeBaseFragment() {
             }
         }
     }
+
+
+    @SuppressLint("LongLogTag")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(updateEvent: UpdateEvent) {
+        when (updateEvent) {
+            UpdateEvent.API_FAILED -> {
+                hideDialog()
+            }
+        }
+    }
+
+    @SuppressLint("LongLogTag")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(walletResponse: WalletResponse) {
+
+        Log.e("c", "  : " + walletResponse)
+
+        hideDialog()
+
+        try {
+            sharePrefRepo.setBalance(walletResponse.Balance.toString())
+
+            dashboardFragmentBinding.amountInput.setText(walletResponse.Balance.toString())
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
 
     private fun requestCameraPermission() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -133,9 +182,7 @@ class DashboardFragment : HomeBaseFragment() {
             mActivity?.navController?.navigate(R.id.action_scan_qr)
         } else {
             Toast.makeText(
-                requireContext(),
-                context?.resources?.getString(R.string.internet_issue),
-                Toast.LENGTH_SHORT
+                requireContext(), context?.resources?.getString(R.string.internet_issue), Toast.LENGTH_SHORT
             ).show()
 
         }

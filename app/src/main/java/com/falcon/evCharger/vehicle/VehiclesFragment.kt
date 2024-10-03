@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.falcon.evCharger.EVMainActivity
 import com.falcon.evCharger.base.HomeBaseFragment
 import com.falcon.evCharger.dashboard.viewModel.DashboardViewModel
 import com.falcon.evCharger.vehicle.viewModel.VehiclesViewModel
@@ -17,7 +18,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class VehiclesFragment : HomeBaseFragment() {
+class VehiclesFragment : HomeBaseFragment(), EVMainActivity.onBackPressListener {
 
     private lateinit var vehiclesFragmentBinding: VehiclesFragmentBinding
 
@@ -33,16 +34,16 @@ class VehiclesFragment : HomeBaseFragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         // Inflate the layout for this fragment
         vehiclesFragmentBinding = VehiclesFragmentBinding.inflate(inflater, container, false)
 
         mActivity?.let { vehiclesViewModel.init(it) }
+        mActivity?.registerOnBackPress(this)
 
         vehiclesFragmentBinding.viewModel = vehiclesViewModel
-
-
 
         return vehiclesFragmentBinding.root
     }
@@ -80,6 +81,10 @@ class VehiclesFragment : HomeBaseFragment() {
 
             }
         }
+    }
+
+    override fun onBackPress() {
+        mActivity?.navController?.navigate(R.id.back_to_dashboard_from_vehicle)
     }
 
 

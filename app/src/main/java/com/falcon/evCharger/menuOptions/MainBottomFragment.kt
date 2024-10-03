@@ -12,17 +12,17 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.falcon.evCharger.Constants
-import com.falcon.evCharger.EVMainActivity
 import com.falcon.evCharger.base.HomeBaseFragment
 import com.falcon.evCharger.dashboard.DashboardFragment
 import com.falcon.evCharger.data.repositry.SharePrefRepo
-import com.falcon.evCharger.setup.SetupFragment
-import com.falcon.evCharger.vehicle.VehiclesFragment
+import com.falcon.evCharger.history.HistoryFragment
+import com.falcon.evCharger.myAccount.AccountSetupFragment
+import com.falcon.evCharger.menu.MenuFragment
 import com.falcon.evcharger.R
 import com.falcon.evcharger.databinding.FragmentMenuBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MenuFragment : HomeBaseFragment() {
+class MainBottomFragment : HomeBaseFragment() {
     var navController: NavController? = null
     private val isCallingSelected = false
     var ignore_biometric = false
@@ -82,18 +82,23 @@ class MenuFragment : HomeBaseFragment() {
                     when (menuItem.itemId) {
                         R.id.navigation_dashboard -> {
 
-                            fragmentMenuBinding.vehicleFab.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.bottom_dark))
+//                            fragmentMenuBinding.vehicleFab.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.bottom_dark))
                             fragmentMenuBinding.pager.setCurrentItem(0, false)
                         }
 
-                        R.id.navigation_vehicles -> {
-                            fragmentMenuBinding.vehicleFab.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.green_900))
+                        R.id.navigation_you -> {
+//                            fragmentMenuBinding.vehicleFab.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.green_900))
                             fragmentMenuBinding.pager.setCurrentItem(1, false)
                         }
 
-                        R.id.navigation_setup -> {
-                            fragmentMenuBinding.vehicleFab.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.bottom_dark))
+                        R.id.navigation_menu -> {
+//                            fragmentMenuBinding.vehicleFab.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.green_900))
                             fragmentMenuBinding.pager.setCurrentItem(2, false)
+                        }
+
+                        R.id.navigation_history -> {
+//                            fragmentMenuBinding.vehicleFab.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.bottom_dark))
+                            fragmentMenuBinding.pager.setCurrentItem(3, false)
                         }
 
                     }
@@ -106,8 +111,9 @@ class MenuFragment : HomeBaseFragment() {
         override fun createFragment(position: Int): Fragment {
             when (position) {
                 0 -> return DashboardFragment()
-                1 -> return VehiclesFragment()
-                2 -> return SetupFragment()
+                1 -> return AccountSetupFragment()
+                2 -> return MenuFragment()
+                3 -> return HistoryFragment()
             }
             return DashboardFragment()
         }

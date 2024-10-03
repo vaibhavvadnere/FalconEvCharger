@@ -10,7 +10,8 @@ object Constants {
     const val REQUEST = "Request"
     const val RESPONSE = "Response"
     private const val PROD = "https://app-ca-webapi.azurewebsites.net/"
-   // private const val DEV = "https://carealertdev.azurewebsites.net/"
+
+    // private const val DEV = "https://carealertdev.azurewebsites.net/"
     private const val DEV = "http://ev.falconides.com/"
     //    const val BASE_URL: String = BuildConfig.BASE_URL
 
@@ -18,7 +19,7 @@ object Constants {
 
     //    const val BASE_URL: String = PROD;
 
-    const val TOTAL_SCREEN = 3
+    const val TOTAL_SCREEN = 4
 
     //Shared Preferences
     const val FALCON_EV_CHARGER_SHARED_DATA = "FalconEvCharger_SharedData"
@@ -72,12 +73,13 @@ object Constants {
         OTP(6)
     }
 
-    val getColor: (balance: Int,context: Context) -> Int = this::getColorForBalance
-    private fun getColorForBalance(balance: Int,context: Context): Int {
+    val getColor: (balance: Float, context: Context) -> Int = this::getColorForBalance
+
+    private fun getColorForBalance(balance: Float, context: Context): Int {
         return when {
             balance < 50 -> ContextCompat.getColor(context, R.color.red_200)
-            balance <= 200 ->  ContextCompat.getColor(context, R.color.yellow_200)
-            else ->  ContextCompat.getColor(context, R.color.green_900)
+            balance <= 200 -> ContextCompat.getColor(context, R.color.yellow_200)
+            else -> ContextCompat.getColor(context, R.color.green_900)
         }
     }
 }

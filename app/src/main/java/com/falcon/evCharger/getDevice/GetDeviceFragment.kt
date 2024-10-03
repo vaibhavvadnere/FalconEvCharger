@@ -96,18 +96,18 @@ class GetDeviceFragment : HomeBaseFragment() {
     private fun updateViewComponents(response: GetDeviceResponse) {
         Log.e("responseLogs", " : " + response)
 
-        sharePrefRepo.balance = 199
         getDeviceBinding.tvAvailableBalance.text = "₹ ${sharePrefRepo.balance}"
 
         getDeviceBinding.tvSocietyName.text = response.User_Details.Society_Name ?: "NA"
 
+        val textColor = context?.let { Constants.getColor(sharePrefRepo.balance.toFloat(), it) }
 
-        val textColor = context?.let { Constants.getColor(sharePrefRepo.balance, it) }
         if (textColor != null) {
             getDeviceBinding.tvAvailableBalance.setTextColor(textColor)
         }
 
-        getDeviceBinding.tvChargerName.text = response.User_Details.Device_Name + " - ${response.User_Details.Device_ID ?: "NA"}"
+//        getDeviceBinding.tvChargerName.text = response.User_Details.Device_Name + " - ${response.User_Details.Device_ID ?: "NA"}"
+        getDeviceBinding.tvChargerName.text = "zaap" + " - ${response.User_Details.Device_ID ?: "NA"}"
         getDeviceBinding.tvMaxPower.text = "3.3 KW - " + response.User_Details.Max_Power.toString() + " V"
         getDeviceBinding.tvChargerId.text = response.User_Details.Device_ID.toString()
         getDeviceBinding.tvPerUnitCharges.text = getString(R.string.charges_per_unit, response.User_Details.ChargesPerUnit.toString())
@@ -133,7 +133,9 @@ class GetDeviceFragment : HomeBaseFragment() {
         val getStartChargingRequest: GetStartChargingRequest = GetStartChargingRequest()
         getStartChargingRequest.Device_ID = deviceId
         getStartChargingRequest.Vehicle_No = selectedVehicle?.Vehicle_No
-        getStartChargingRequest.Unit = selectedUnit?.unitName
+//        getStartChargingRequest.Unit = selectedUnit?.unitName
+        getStartChargingRequest.Unit = selectedUnit?.unit
+
         Log.e(
             "onclick_start_charging_log", "getStartCharging -> device id -> " + SharePrefRepo.getInstance().deviceId +
                     "Vehicle_No -> " + selectedVehicle + " -> Unit " + selectedUnit
@@ -197,6 +199,7 @@ class GetDeviceFragment : HomeBaseFragment() {
                 if (selectedVehicle != null && selectedUnit != null) {
 
                     if (validate()) {
+
                         showDialog()
                         getStartCharging(SharePrefRepo.getInstance().deviceId, selectedVehicle, selectedUnit)
                     }
@@ -378,36 +381,99 @@ class GetDeviceFragment : HomeBaseFragment() {
     private fun showUnitsDialog() {
 
         val unitsList: ArrayList<UnitsData> = ArrayList()
+        val balance = sharePrefRepo.balance.toFloat()
+
         if (selectedVehicle?.Vehicle_Type.equals("Two Wheeler")) {
             unitsList.clear()
 
-            val unitsData1: UnitsData = UnitsData()
-            unitsData1.unitName = "1"
-            val unitsData3: UnitsData = UnitsData()
-            unitsData3.unitName = "3"
-            val unitsData5: UnitsData = UnitsData()
-            unitsData5.unitName = "5"
+            if (balance > 10) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "10"
+                unitsList.add(unitsData)
+            }
+            if (balance > 20) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "20"
+                unitsList.add(unitsData)
+            }
+            if (balance > 30) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "30"
+                unitsList.add(unitsData)
+            }
+            if (balance > 40) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "40"
+                unitsList.add(unitsData)
+            }
+            if (balance > 50) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "50"
+                unitsList.add(unitsData)
+            }
+            if (balance > 70) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "70"
+                unitsList.add(unitsData)
+            }
+            if (balance > 100) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "100"
+                unitsList.add(unitsData)
+            }
+
             val unitsDataFC: UnitsData = UnitsData()
-            unitsDataFC.unitName = "Full Charge"
+            unitsDataFC.unitName = balance.toString()
+            unitsList.add(unitsDataFC)
+
 
         } else if (selectedVehicle?.Vehicle_Type.equals("Four Wheeler")) {
             unitsList.clear()
+            if (balance > 50) {
+                val unitsData1: UnitsData = UnitsData()
+                unitsData1.unitName = "50"
+            }
+            if (balance > 70) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "70"
+                unitsList.add(unitsData)
+            }
+            if (balance > 100) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "100"
+                unitsList.add(unitsData)
+            }
+            if (balance > 130) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "130"
+                unitsList.add(unitsData)
+            }
+            if (balance > 150) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "150"
+                unitsList.add(unitsData)
+            }
+            if (balance > 200) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "200"
+                unitsList.add(unitsData)
+            }
+            if (balance > 500) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "500"
+                unitsList.add(unitsData)
+            }
+            if (balance > 700) {
+                val unitsData: UnitsData = UnitsData()
+                unitsData.unitName = "700"
+                unitsList.add(unitsData)
+            }
 
-            val unitsData5: UnitsData = UnitsData()
-            unitsData5.unitName = "5"
-            val unitsData10: UnitsData = UnitsData()
-            unitsData10.unitName = "10"
-            val unitsData15: UnitsData = UnitsData()
-            unitsData15.unitName = "15"
-            val unitsData20: UnitsData = UnitsData()
-            unitsData20.unitName = "20"
-            val unitsData25: UnitsData = UnitsData()
-            unitsData25.unitName = "25"
-            val unitsData30: UnitsData = UnitsData()
-            unitsData30.unitName = "30"
             val unitsDataFC: UnitsData = UnitsData()
-            unitsDataFC.unitName = "Full Charge"
-            unitsList.addAll(listOf(unitsData5, unitsData10, unitsData15, unitsData20, unitsData25, unitsData30, unitsDataFC))
+            unitsDataFC.unitName = balance.toString()
+            unitsList.add(unitsDataFC)
+
+//            unitsList.addAll(listOf(unitsData5, unitsData10, unitsData15, unitsData20, unitsData25, unitsData30, unitsDataFC))
         }
 
 
@@ -473,6 +539,8 @@ class GetDeviceFragment : HomeBaseFragment() {
         // if button is clicked, close the custom dialog
         dialogButton.setOnClickListener {
             selectedUnit = tempSelectedUnitData
+
+            selectedUnit?.unit = (selectedUnit?.unitName?.toDouble()?.div(10)).toString()
 
             Log.e("SelectedUnitLogOnYes", " : " + Gson().toJson(selectedUnit))
 

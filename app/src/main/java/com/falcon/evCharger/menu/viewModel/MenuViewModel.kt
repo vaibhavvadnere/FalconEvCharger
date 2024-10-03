@@ -1,7 +1,6 @@
-package com.falcon.evCharger.setup.viewModel
+package com.falcon.evCharger.menu.viewModel
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.falcon.evCharger.EVMainActivity
@@ -10,10 +9,10 @@ import com.falcon.evCharger.data.api.ApiServiceImpl
 import com.falcon.evCharger.data.repositry.MainRepo
 import com.falcon.evCharger.data.repositry.SharePrefRepo
 import com.falcon.evCharger.onBoarding.LetsYouInFragment
-import com.falcon.evCharger.setup.SetupFragment
+import com.falcon.evCharger.menu.MenuFragment
 import org.greenrobot.eventbus.EventBus
 
-class SetupViewModel : ViewModel() {
+class MenuViewModel : ViewModel() {
 
     private var mainRepo: MainRepo? = null
 
@@ -33,6 +32,6 @@ class SetupViewModel : ViewModel() {
     }
 
     fun onLogoutClick(view: View) {
-        EventBus.getDefault().post(SetupFragment.ViewOnClick.LOGOUT_USER)
+        EventBus.getDefault().post(MenuFragment.ViewOnClick.LOGOUT_USER)
     }
 }

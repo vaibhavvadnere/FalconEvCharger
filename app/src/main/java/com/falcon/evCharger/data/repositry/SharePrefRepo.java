@@ -56,12 +56,12 @@ public class SharePrefRepo {
         return mcareAlertSharedpref.getInt(LOCATION_ID, -1);
     }
 
-    public void setDeviceId(String  device_id) {
+    public void setDeviceId(String device_id) {
         mcareAlertSharedprefEditor.putString(DEVICE_ID, device_id);
         mcareAlertSharedprefEditor.apply();
     }
 
-    public String  getDeviceId() {
+    public String getDeviceId() {
         return mcareAlertSharedpref.getString(DEVICE_ID, "");
     }
 
@@ -187,8 +187,9 @@ public class SharePrefRepo {
         mcareAlertSharedprefEditor.putString(LONGI, Longitude);
         mcareAlertSharedprefEditor.apply();
     }
-    public void setBalance(int balance) {
-        mcareAlertSharedprefEditor.putInt(BALANCE, balance);
+
+    public void setBalance(String balance) {
+        mcareAlertSharedprefEditor.putString(BALANCE, balance);
         mcareAlertSharedprefEditor.apply();
     }
 
@@ -216,8 +217,8 @@ public class SharePrefRepo {
         return mcareAlertSharedpref.getBoolean(key, false);
     }
 
-    public int getBalance() {
-        return  mcareAlertSharedpref.getInt(BALANCE, 0);
+    public String getBalance() {
+        return mcareAlertSharedpref.getString(BALANCE, "0");
     }
 
 }

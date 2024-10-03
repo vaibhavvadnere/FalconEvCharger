@@ -15,4 +15,6 @@
     <color name="red_200">#F31515</color>
     <color name="yellow_200">#FFC107</color>
     <color name="app_background_color">#F4F6FA</color>
+    <color name="app_blue">#71BBE2</color>
+
 </resources>

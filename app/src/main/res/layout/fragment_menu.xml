@@ -22,11 +22,19 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="65dp" />
+            android:layout_height="0dip"
+            app:layout_constraintBottom_toTopOf="@+id/layout_bottom_navigation"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--<FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            app:layout_constraintBottom_toTopOf="@+id/layout_bottom_navigation"
+            app:layout_constraintTop_toTopOf="parent" />-->
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/bottom_navigation1"
+            android:id="@+id/layout_bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="78dp"
             android:layout_gravity="bottom"
@@ -34,8 +42,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                app:itemIconTint="@color/bottom_nav_icon_color"
+                app:itemTextColor="@color/bottom_nav_text_color"
+                app:labelVisibilityMode="labeled"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:menu="@menu/botton_navigation_menu" />
 
-            <com.falcon.evCharger.menuOptions.CustomBottomNavigationView1
+            <!--<com.falcon.evCharger.menuOptions.CustomBottomNavigationView1
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -44,7 +65,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:menu="@menu/botton_navigation_menu" />
+                app:menu="@menu/botton_navigation_menu" />-->
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -58,7 +79,8 @@
             android:backgroundTint="@color/bottom_dark"
             android:gravity="center"
             android:src="@drawable/ic_vehicle"
-            app:layout_constraintBottom_toBottomOf="@+id/bottom_navigation1"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/layout_bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:maxImageSize="35dp" />

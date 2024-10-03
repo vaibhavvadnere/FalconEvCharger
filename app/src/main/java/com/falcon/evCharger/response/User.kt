@@ -9,5 +9,9 @@ data class User(
     val User_ID: String,
     val User_Name: String,
     val Vehicle_No: String,
-    val Vehicle_Type: String
-)
+    val Vehicle_Type: String,
+    val DOB: String,
+    val Email_ID: String,
+    val Photo: String,
+
+    )
